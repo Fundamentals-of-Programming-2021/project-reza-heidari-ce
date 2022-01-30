@@ -8,17 +8,18 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
 #include <string.h>
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
-const int FPS = 60;
+static const int SCREEN_WIDTH = 800;
+static const int SCREEN_HEIGHT = 600;
+static const int FPS = 60;
 
-SDL_Window* window;
-SDL_Renderer* renderer;
-SDL_Texture *background_texture;
+static SDL_Window* window;
+static SDL_Renderer* renderer;
+static SDL_Texture *background_texture;
 
 
 void init_username_menu() {

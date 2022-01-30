@@ -129,6 +129,30 @@ project/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/build
 .PHONY : project/fast
 
+game_map.o: game_map.c.o
+.PHONY : game_map.o
+
+# target to build an object file
+game_map.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/game_map.c.o
+.PHONY : game_map.c.o
+
+game_map.i: game_map.c.i
+.PHONY : game_map.i
+
+# target to preprocess a source file
+game_map.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/game_map.c.i
+.PHONY : game_map.c.i
+
+game_map.s: game_map.c.s
+.PHONY : game_map.s
+
+# target to generate assembly for a file
+game_map.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/game_map.c.s
+.PHONY : game_map.c.s
+
 main.o: main.c.o
 .PHONY : main.o
 
@@ -186,6 +210,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... project"
+	@echo "... game_map.o"
+	@echo "... game_map.i"
+	@echo "... game_map.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

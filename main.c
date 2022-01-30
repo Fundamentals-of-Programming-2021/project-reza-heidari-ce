@@ -4,10 +4,12 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
 #include <string.h>
 #include "username_menu.h"
+#include "game_map.h"
 int init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -32,8 +34,9 @@ void kill() {
 int main() {
     init();
     char *user_name=main_username_menu();
-
     printf("%s",user_name);
+
+    main_game_map();
 
     free(user_name);
     kill();

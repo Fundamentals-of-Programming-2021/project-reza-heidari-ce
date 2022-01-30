@@ -76,6 +76,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/mnt/c/sharif/c how to program/project/game_map.c">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/mnt/c/sharif/c how to program/project/game_map.h">
+			<Option target="project"/>
+		</Unit>
 		<Unit filename="/mnt/c/sharif/c how to program/project/main.c">
 			<Option target="project"/>
 		</Unit>
