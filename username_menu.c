@@ -19,11 +19,10 @@ const int FPS = 60;
 SDL_Window* window;
 SDL_Renderer* renderer;
 SDL_Texture *background_texture;
-TTF_Font* font;
 
 
 void init_username_menu() {
-    window = SDL_CreateWindow("state.io", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    window = SDL_CreateWindow("State.io", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               SCREEN_WIDTH,
                               SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
 
@@ -31,9 +30,11 @@ void init_username_menu() {
     SDL_StartTextInput();
 }
 void kill_username_menu() {
+
+
     SDL_StopTextInput();
 
-    TTF_CloseFont( font );
+
     SDL_DestroyTexture( background_texture );
     background_texture = NULL;
 
@@ -42,56 +43,69 @@ void kill_username_menu() {
     window = NULL;
     renderer = NULL;
 }
+void show_text_username_menu(char *str_text,SDL_Color color,TTF_Font* font,int x,int y){
+    SDL_Surface* text = TTF_RenderText_Solid( font, str_text, color );
+    SDL_Texture* text_texture = SDL_CreateTextureFromSurface( renderer, text );
+    SDL_Rect dest = { x,y, text->w, text->h };
+    SDL_RenderCopy( renderer, text_texture,NULL, &dest );
+    SDL_FreeSurface(text);
+    SDL_DestroyTexture(text_texture);
+}
 char* main_username_menu() {
 
     init_username_menu();
-    background_texture = IMG_LoadTexture(renderer,"../sample.bmp");
-    font = TTF_OpenFont("../Lato-Black.ttf", 24);
+    background_texture = IMG_LoadTexture(renderer,"../username_menu_bg.png");
+    TTF_Font* font1 = TTF_OpenFont("../Lato-Black.ttf", 24);
+    TTF_Font* font2 = TTF_OpenFont("../metal-lord.ttf", 36);
 
-    SDL_Rect texture_rect = {.x=0, .y=0, .w=SCREEN_WIDTH, .h=SCREEN_HEIGHT};
+    SDL_Rect background_texture_rect = {.x=0, .y=0, .w=SCREEN_WIDTH, .h=SCREEN_HEIGHT};
 
-    SDL_Surface* text;
-    SDL_Texture* text_texture;
-    SDL_Color color = { 0, 0, 0 };
+    SDL_Color credits_color = { 0x2E, 0xCA, 0x1D };
+    SDL_Color user_name_color = { 0, 0, 0 };
+    SDL_Color color_title = { 0xB2, 0x10, 0x10 };
 
-
-    char user_name[100]="Enter you user name : ";
+    char *user_name=(char *) malloc(sizeof(char) * 100);
+    user_name[0]='\0';
+    strcat(user_name,"Enter you user name : ");
 
     SDL_bool shallExit = SDL_FALSE;
     while (shallExit == SDL_FALSE) {
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
         SDL_RenderClear(renderer);
-
-        text = TTF_RenderText_Solid( font, user_name, color );
-        text_texture = SDL_CreateTextureFromSurface( renderer, text );
-        SDL_Rect dest = { SCREEN_WIDTH/2-200,SCREEN_HEIGHT/2, text->w, text->h };
-
-        SDL_RenderCopy(renderer, background_texture, NULL, &texture_rect);
-        SDL_RenderCopy( renderer, text_texture,NULL, &dest );
-
-        SDL_FreeSurface(text);
-        SDL_DestroyTexture(text_texture);
+        SDL_RenderCopy(renderer, background_texture, NULL, &background_texture_rect);
+        show_text_username_menu(user_name,user_name_color,font1,SCREEN_WIDTH/2-280,SCREEN_HEIGHT/2-30);
+        show_text_username_menu("Welcome to State.io",color_title,font2,SCREEN_WIDTH/2-180,60);
+        show_text_username_menu("Created by Reza Heidari",credits_color,font1,SCREEN_WIDTH/2-130,SCREEN_HEIGHT-60);
 
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
             switch (sdlEvent.type) {
+                case SDL_QUIT:
+                    shallExit = SDL_TRUE;
+                    break;
                 case SDL_TEXTINPUT:
                     strcat(user_name,sdlEvent.text.text);
                     break;
-                case SDL_KEYDOWN:
-                    if(sdlEvent.key.keysym.sym == SDLK_BACKSPACE && strlen(user_name)>22){
+                case SDL_KEYUP:
+                    if(sdlEvent.key.keysym.sym == SDLK_RETURN){
+                        shallExit = SDL_TRUE;
+                    }
+                    else if(sdlEvent.key.keysym.sym == SDLK_BACKSPACE && strlen(user_name)>22){
                         user_name[strlen(user_name)-1]='\0';
                     }
-                    break;
-                case SDL_QUIT:
-                    shallExit = SDL_TRUE;
                     break;
             }
         }
         SDL_RenderPresent(renderer);
         SDL_Delay(1000 / FPS);
     }
+    TTF_CloseFont( font1 );
+    TTF_CloseFont( font2 );
     kill_username_menu();
-    return NULL;
+    char temp_str[100];
+    for(int i=22;i<strlen(user_name);i++)temp_str[i-22]=user_name[i];
+    temp_str[strlen(user_name)-22]='\0';
+    strcpy(user_name,temp_str);
+    return user_name;
 }
 

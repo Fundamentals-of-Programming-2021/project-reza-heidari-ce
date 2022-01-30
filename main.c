@@ -31,7 +31,11 @@ void kill() {
 }
 int main() {
     init();
-    main_username_menu();
+    char *user_name=main_username_menu();
+
+    printf("%s",user_name);
+
+    free(user_name);
     kill();
     return 0;
 }

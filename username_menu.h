@@ -18,6 +18,7 @@
 
 void init_username_menu();
 void kill_username_menu();
+void show_text_username_menu(char *str_text,SDL_Color color,TTF_Font* font,int x,int y);
 char *main_username_menu();
 
 
