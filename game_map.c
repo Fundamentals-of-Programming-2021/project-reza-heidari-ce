@@ -22,6 +22,7 @@ static SDL_Renderer* renderer;
 struct pawn{
     int current_x,current_y;
     int dest_x,dest_y;
+    int region_dest;
     int color;
     int visible_after;
 };
@@ -51,6 +52,14 @@ void add_border_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH]){
                 if(map[i][j+1]==0 || map[i][j-1]==0 || map[i+1][j]==0 || map[i-1][j]==0)map[i][j]=-1;
             }
         }
+    }
+    for(int i=0;i<SCREEN_WIDTH;i++){
+        map[0][i]=-1;
+        map[SCREEN_HEIGHT-1][i]=-1;
+    }
+    for(int i=0;i<SCREEN_HEIGHT;i++){
+        map[i][0]=-1;
+        map[i][SCREEN_WIDTH-1]=-1;
     }
 }
 void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int cnt_each,int initial_pawn_cnt,region *regions){
@@ -113,6 +122,43 @@ void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int
     }
 
 }
+void change_region_color_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int color,int start_x,int start_y){
+    int q[SCREEN_HEIGHT * SCREEN_WIDTH][2] = {0};
+    q[0][0] = start_x;
+    q[0][1] = start_y;
+    int index = 0, last = 0;
+    map[start_y][start_x] = color;
+    while (index <= last) {
+        int current_x = q[index][0];
+        int current_y = q[index][1];
+        index++;
+        if (current_x + 1 < SCREEN_WIDTH && map[current_y][current_x + 1] != -1 && map[current_y][current_x + 1] !=color) {
+            last++;
+            q[last][0] = current_x + 1;
+            q[last][1] = current_y;
+            map[current_y][current_x + 1] = color;
+        }
+        if (current_x - 1 >= 0 && map[current_y][current_x - 1] != -1 && map[current_y][current_x - 1] != color) {
+            last++;
+            q[last][0] = current_x - 1;
+            q[last][1] = current_y;
+            map[current_y][current_x - 1] = color;
+        }
+        if (current_y + 1 < SCREEN_HEIGHT && map[current_y + 1][current_x] != -1 && map[current_y + 1][current_x] != color) {
+            last++;
+            q[last][0] = current_x;
+            q[last][1] = current_y + 1;
+            map[current_y + 1][current_x] = color;
+        }
+        if (current_y - 1 >= 0 && map[current_y - 1][current_x] != -1 && map[current_y - 1][current_x] != color) {
+            last++;
+            q[last][0] = current_x;
+            q[last][1] = current_y - 1;
+            map[current_y - 1][current_x] = color;
+        }
+    }
+}
+
 void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int cnt_regions){
     for(int i=0;i<SCREEN_HEIGHT;i++){
         for(int j=0;j<SCREEN_WIDTH;j++){
@@ -130,7 +176,7 @@ void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int 
         stringRGBA(renderer,regions[i].center_x,regions[i].center_y,temp_str,0x00,0x00,0x00,0xff);
     }
 }
-int move_pawns_game_map(pawn *moving_pawns,int cnt_moving_pawns){
+int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,region *regions,int cnt_moving_pawns){
     pawn temp[3000];
     int index=0;
     for(int i=0;i<cnt_moving_pawns;i++){
@@ -157,6 +203,19 @@ int move_pawns_game_map(pawn *moving_pawns,int cnt_moving_pawns){
             moving_pawns[i].current_y = moving_pawns[i].current_y + speed_y;
             if(abs(moving_pawns[i].current_x-moving_pawns[i].dest_x)<5 && abs(moving_pawns[i].current_y-moving_pawns[i].dest_y)<5){
                 cnt_moving_pawns--;
+                if(regions[moving_pawns[i].region_dest].color==moving_pawns[i].color){
+                    (regions[moving_pawns[i].region_dest].pawn_cnt)++;
+                }
+                else{
+                    if(regions[moving_pawns[i].region_dest].pawn_cnt != 0){
+                        (regions[moving_pawns[i].region_dest].pawn_cnt)--;
+                    }
+                    else{
+                        regions[moving_pawns[i].region_dest].pawn_cnt = 1;
+                        regions[moving_pawns[i].region_dest].color=moving_pawns[i].color;
+                        change_region_color_game_map(map,moving_pawns[i].color,moving_pawns[i].dest_x,moving_pawns[i].dest_y);
+                    }
+                }
             }
             else{
                 if(moving_pawns[i].color==1)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,5,0xff,0x00,0x00,0xff);
@@ -173,6 +232,15 @@ int move_pawns_game_map(pawn *moving_pawns,int cnt_moving_pawns){
     }
     return cnt_moving_pawns;
 }
+int get_region_id_game_map(region *regions,int cnt_regions,int x,int y){
+    for(int i=0;i<cnt_regions;i++){
+        int dist=(regions[i].center_x-x)*(regions[i].center_x-x)+(regions[i].center_y-y)*(regions[i].center_y-y);
+        if(dist<400){
+            return i;
+        }
+    }
+    return -1;
+}
 void main_game_map(){
     init_game_map();
     srand(time(NULL));
@@ -183,33 +251,27 @@ void main_game_map(){
     create_random_map_game_map(map,4,1,10,regions);
     pawn moving_pawns[3000];
     int cnt_moving_pawns=0;
+    int max_soldiers=50;
+    int frame=0;
 
-    //test
-
-    cnt_moving_pawns=2;
-    moving_pawns[0].color=3;
-    moving_pawns[0].dest_x=10;
-    moving_pawns[0].dest_y=20;
-    moving_pawns[0].visible_after=0;
-    moving_pawns[0].current_x=500;
-    moving_pawns[0].current_y=300;
-
-    moving_pawns[1].color=3;
-    moving_pawns[1].dest_x=10;
-    moving_pawns[1].dest_y=300;
-    moving_pawns[1].visible_after=0;
-    moving_pawns[1].current_x=500;
-    moving_pawns[1].current_y=10;
-    //
+    int selected_source_region=-1,selected_dest_region=-1;
 
     SDL_bool shallExit = SDL_FALSE;
     while (shallExit == SDL_FALSE) {
+        frame=(frame+1)%60;
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
         SDL_RenderClear(renderer);
 
         draw_map_game_map(map,regions,cnt_regions);
 
-        cnt_moving_pawns=move_pawns_game_map(moving_pawns,cnt_moving_pawns);
+        if(frame==0){
+            for(int i=0;i<cnt_regions;i++){
+                if(regions[i].color!=4 && regions[i].pawn_cnt<max_soldiers)(regions[i].pawn_cnt) += regions[i].growth_rate;
+            }
+        }
+
+
+        cnt_moving_pawns=move_pawns_game_map(map,moving_pawns,regions,cnt_moving_pawns);
 
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
@@ -217,7 +279,30 @@ void main_game_map(){
                 case SDL_QUIT:
                     shallExit = SDL_TRUE;
                     break;
-
+                case SDL_MOUSEBUTTONDOWN:
+                    selected_source_region=get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
+                    break;
+                case SDL_MOUSEBUTTONUP:
+                    selected_dest_region = get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
+                    if(selected_source_region==-1 || selected_dest_region==-1 || selected_source_region==selected_dest_region || regions[selected_source_region].color==4){
+                        selected_source_region=-1;
+                        selected_dest_region=-1;
+                    }
+                    else{
+                        for(int i=0;i<regions[selected_source_region].pawn_cnt;i++){
+                            moving_pawns[cnt_moving_pawns].current_x=regions[selected_source_region].center_x;
+                            moving_pawns[cnt_moving_pawns].current_y=regions[selected_source_region].center_y;
+                            moving_pawns[cnt_moving_pawns].dest_x=regions[selected_dest_region].center_x;
+                            moving_pawns[cnt_moving_pawns].dest_y=regions[selected_dest_region].center_y;
+                            moving_pawns[cnt_moving_pawns].region_dest=selected_dest_region;
+                            moving_pawns[cnt_moving_pawns].color=regions[selected_source_region].color;
+                            moving_pawns[cnt_moving_pawns].visible_after=i*3;
+                            cnt_moving_pawns++;
+                        }
+                        regions[selected_source_region].pawn_cnt=0;
+                        //printf("bb %d\n",cnt_moving_pawns);
+                    }
+                    break;
             }
         }
         SDL_RenderPresent(renderer);
