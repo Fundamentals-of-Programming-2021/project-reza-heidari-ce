@@ -15,13 +15,16 @@
 #include <stdbool.h>
 #include <string.h>
 
-enum{SCREEN_WIDTH = 800};
-enum{SCREEN_HEIGHT = 600};
+enum{SCREEN_WIDTH = 600};
+enum{SCREEN_HEIGHT = 400};
+typedef struct pawn pawn;
+typedef struct region region;
 void init_game_map();
 void kill_game_map();
 void main_game_map();
 void add_border_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH]);
-void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int cnt_each);
-void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH]);
+void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int cnt_each,int initial_pawn_cnt,region *regions);
+void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int cnt_regions);
+int move_pawns_game_map(pawn *moving_pawns,int cnt_moving_pawns);
 
 #endif //PROJECT_GAME_MAP_H

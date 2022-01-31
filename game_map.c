@@ -19,6 +19,18 @@ static const int FPS = 60;
 static SDL_Window* window;
 static SDL_Renderer* renderer;
 
+struct pawn{
+    int current_x,current_y;
+    int dest_x,dest_y;
+    int color;
+    int visible_after;
+};
+struct region{
+    int center_x,center_y;
+    int pawn_cnt;
+    int growth_rate;
+    int color;
+};
 void init_game_map() {
     window = SDL_CreateWindow("State.io", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               SCREEN_WIDTH,
@@ -41,7 +53,8 @@ void add_border_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH]){
         }
     }
 }
-void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int cnt_each){
+void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int cnt_each,int initial_pawn_cnt,region *regions){
+    int region_index=0;
     for(int j=1;j<=cnt_each;j++) {
         for(int i=1;i<=cnt;i++){
             int start_x = rand() % SCREEN_WIDTH;
@@ -50,6 +63,13 @@ void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int
                 start_x = rand() % SCREEN_WIDTH;
                 start_y = rand() % SCREEN_HEIGHT;
             }
+            regions[region_index].center_x=start_x;
+            regions[region_index].center_y=start_y;
+            regions[region_index].color=i;
+            regions[region_index].pawn_cnt=initial_pawn_cnt;
+            regions[region_index].growth_rate=1;
+            region_index++;
+
             int q[SCREEN_HEIGHT * SCREEN_WIDTH][2] = {0};
             q[0][0] = start_x;
             q[0][1] = start_y;
@@ -93,30 +113,103 @@ void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int
     }
 
 }
-void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH]){
+void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int cnt_regions){
     for(int i=0;i<SCREEN_HEIGHT;i++){
         for(int j=0;j<SCREEN_WIDTH;j++){
-            if(map[i][j]==1)pixelRGBA(renderer,j,i,0xff,0x00,0x00,0xff);
-            if(map[i][j]==2)pixelRGBA(renderer,j,i,0x00,0xff,0x00,0xff);
-            if(map[i][j]==3)pixelRGBA(renderer,j,i,0x00,0x00,0xff,0xff);
+            if(map[i][j]==1)pixelRGBA(renderer,j,i,0xee,0x4b,0x2b,0xff);
+            if(map[i][j]==2)pixelRGBA(renderer,j,i,0x22,0xd6,0xc0,0xff);
+            if(map[i][j]==3)pixelRGBA(renderer,j,i,0x9b,0xa0,0xdb,0xff);
             if(map[i][j]==4)pixelRGBA(renderer,j,i,0xff,0xfd,0xd0,0xff);
             if(map[i][j]==-1)pixelRGBA(renderer,j,i,0x00,0x00,0x00,0xff);
         }
     }
+    for(int i=0;i<cnt_regions;i++){
+        /* reminder: add code for artillery color and image */
+        char temp_str[5];
+        sprintf(temp_str,"%d",regions[i].pawn_cnt);
+        stringRGBA(renderer,regions[i].center_x,regions[i].center_y,temp_str,0x00,0x00,0x00,0xff);
+    }
+}
+int move_pawns_game_map(pawn *moving_pawns,int cnt_moving_pawns){
+    pawn temp[3000];
+    int index=0;
+    for(int i=0;i<cnt_moving_pawns;i++){
+        int speed_x,speed_y;
+        double slope;
+        if(abs(moving_pawns[i].dest_x-moving_pawns[i].current_x)>abs(moving_pawns[i].dest_y-moving_pawns[i].current_y)) {
+            speed_x = 3;
+            if (moving_pawns[i].dest_x < moving_pawns[i].current_x)speed_x *= -1;
+                slope = ((double) (moving_pawns[i].dest_y - moving_pawns[i].current_y)) /
+                           ((double) (moving_pawns[i].dest_x - moving_pawns[i].current_x));
+            speed_y = (int) (((double) speed_x) * slope);
+        }
+        else{
+            speed_y = 3;
+            if (moving_pawns[i].dest_y < moving_pawns[i].current_y)speed_y *= -1;
+            slope = ((double) (moving_pawns[i].dest_x - moving_pawns[i].current_x)) /
+                    ((double) (moving_pawns[i].dest_y - moving_pawns[i].current_y));
+            speed_x = (int) (((double) speed_y) * slope);
+        }
+
+        if(moving_pawns[i].visible_after>0)(moving_pawns[i].visible_after)--;
+        else {
+            moving_pawns[i].current_x = moving_pawns[i].current_x + speed_x;
+            moving_pawns[i].current_y = moving_pawns[i].current_y + speed_y;
+            if(abs(moving_pawns[i].current_x-moving_pawns[i].dest_x)<5 && abs(moving_pawns[i].current_y-moving_pawns[i].dest_y)<5){
+                cnt_moving_pawns--;
+            }
+            else{
+                if(moving_pawns[i].color==1)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,5,0xff,0x00,0x00,0xff);
+                if(moving_pawns[i].color==2)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,5,0x00,0xff,0x00,0xff);
+                if(moving_pawns[i].color==3)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,5,0x00,0x00,0xff,0xff);
+
+                temp[index]=moving_pawns[i];
+                index++;
+            }
+        }
+    }
+    for(int i=0;i<index;i++){
+        moving_pawns[i]=temp[i];
+    }
+    return cnt_moving_pawns;
 }
 void main_game_map(){
     init_game_map();
     srand(time(NULL));
 
     int map[SCREEN_HEIGHT][SCREEN_WIDTH]={0};
-    create_random_map_game_map(map,4,6);
+    region regions[20];
+    int cnt_regions=4;
+    create_random_map_game_map(map,4,1,10,regions);
+    pawn moving_pawns[3000];
+    int cnt_moving_pawns=0;
 
+    //test
+
+    cnt_moving_pawns=2;
+    moving_pawns[0].color=3;
+    moving_pawns[0].dest_x=10;
+    moving_pawns[0].dest_y=20;
+    moving_pawns[0].visible_after=0;
+    moving_pawns[0].current_x=500;
+    moving_pawns[0].current_y=300;
+
+    moving_pawns[1].color=3;
+    moving_pawns[1].dest_x=10;
+    moving_pawns[1].dest_y=300;
+    moving_pawns[1].visible_after=0;
+    moving_pawns[1].current_x=500;
+    moving_pawns[1].current_y=10;
+    //
 
     SDL_bool shallExit = SDL_FALSE;
     while (shallExit == SDL_FALSE) {
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
         SDL_RenderClear(renderer);
-        draw_map_game_map(map);
+
+        draw_map_game_map(map,regions,cnt_regions);
+
+        cnt_moving_pawns=move_pawns_game_map(moving_pawns,cnt_moving_pawns);
 
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
