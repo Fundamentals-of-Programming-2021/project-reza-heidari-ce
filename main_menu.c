@@ -1,8 +1,8 @@
 //
-// Created by r4hei on 1/29/2022.
+// Created by r4hei on 2/1/2022.
 //
 
-#include "username_menu.h"
+#include "main_menu.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL_image.h>
@@ -22,19 +22,14 @@ static SDL_Renderer* renderer;
 static SDL_Texture *background_texture;
 
 
-void init_username_menu() {
+void init_main_menu() {
     window = SDL_CreateWindow("State.io", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               SCREEN_WIDTH,
                               SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
-    SDL_StartTextInput();
 }
-void kill_username_menu() {
-
-
-    SDL_StopTextInput();
-
+void kill_main_menu() {
 
     SDL_DestroyTexture( background_texture );
     background_texture = NULL;
@@ -44,7 +39,7 @@ void kill_username_menu() {
     window = NULL;
     renderer = NULL;
 }
-void show_text_username_menu(char *str_text,SDL_Color color,TTF_Font* font,int x,int y){
+void show_text_main_menu(char *str_text,SDL_Color color,TTF_Font* font,int x,int y){
     SDL_Surface* text = TTF_RenderText_Solid( font, str_text, color );
     SDL_Texture* text_texture = SDL_CreateTextureFromSurface( renderer, text );
     SDL_Rect dest = { x,y, text->w, text->h };
@@ -52,10 +47,14 @@ void show_text_username_menu(char *str_text,SDL_Color color,TTF_Font* font,int x
     SDL_FreeSurface(text);
     SDL_DestroyTexture(text_texture);
 }
-char* main_username_menu() {
+int is_in_rectangle_main_menu(int x1,int y1,int x2,int y2,int x,int y){
+    if(x<x2 && x>x1 && y<y2 && y>y1)return 1;
+    return 0;
+}
+int main_main_menu() {
 
-    init_username_menu();
-    background_texture = IMG_LoadTexture(renderer,"../username_menu_bg.png");
+    init_main_menu();
+    background_texture = IMG_LoadTexture(renderer,"../main_menu_bg.png");
     TTF_Font* font1 = TTF_OpenFont("../Lato-Black.ttf", 24);
     TTF_Font* font2 = TTF_OpenFont("../metal-lord.ttf", 36);
 
@@ -65,37 +64,44 @@ char* main_username_menu() {
     SDL_Color user_name_color = { 0, 0, 0 };
     SDL_Color color_title = { 0xB2, 0x10, 0x10 };
 
-    char *user_name=(char *) malloc(sizeof(char) * 100);
-    user_name[0]='\0';
-    strcat(user_name,"Enter you user name : ");
+    int next_menu_id=-1;
 
-    int closed=0;
     SDL_bool shallExit = SDL_FALSE;
     while (shallExit == SDL_FALSE) {
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, background_texture, NULL, &background_texture_rect);
-        show_text_username_menu(user_name,user_name_color,font1,SCREEN_WIDTH/2-280,SCREEN_HEIGHT/2-30);
-        show_text_username_menu("Welcome to State.io",color_title,font2,SCREEN_WIDTH/2-180,60);
-        show_text_username_menu("Press Enter to continue",credits_color,font1,SCREEN_WIDTH/2-130,SCREEN_HEIGHT/2+50);
-        show_text_username_menu("Created by Reza Heidari",credits_color,font1,SCREEN_WIDTH/2-130,SCREEN_HEIGHT-60);
 
+        roundedBoxRGBA(renderer,250,177,550,227,30,0x2b,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,250,242,550,292,30,0x2b,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,250,307,550,357,30,0x30,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,250,372,550,422,30,0x30,0xde,0xc9,0xa9);
+        show_text_main_menu("new game",color_title,font2,320,180);
+        show_text_main_menu("continue",color_title,font2,320,245);
+        show_text_main_menu("leaderboard",color_title,font2,290,310);
+        show_text_main_menu("Credits",color_title,font2,330,375);
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
             switch (sdlEvent.type) {
                 case SDL_QUIT:
-                    closed=1;
                     shallExit = SDL_TRUE;
                     break;
-                case SDL_TEXTINPUT:
-                    strcat(user_name,sdlEvent.text.text);
-                    break;
-                case SDL_KEYUP:
-                    if(sdlEvent.key.keysym.sym == SDLK_RETURN){
+                case SDL_MOUSEBUTTONUP:
+                    if(is_in_rectangle_main_menu(250,177,550,227,sdlEvent.button.x,sdlEvent.button.y)){
+                        next_menu_id=1;
                         shallExit = SDL_TRUE;
                     }
-                    else if(sdlEvent.key.keysym.sym == SDLK_BACKSPACE && strlen(user_name)>22){
-                        user_name[strlen(user_name)-1]='\0';
+                    else if(is_in_rectangle_main_menu(250,242,550,292,sdlEvent.button.x,sdlEvent.button.y)){
+                        next_menu_id=2;
+                        shallExit = SDL_TRUE;
+                    }
+                    else if(is_in_rectangle_main_menu(250,307,550,357,sdlEvent.button.x,sdlEvent.button.y)){
+                        next_menu_id=3;
+                        shallExit = SDL_TRUE;
+                    }
+                    else if(is_in_rectangle_main_menu(250,372,550,422,sdlEvent.button.x,sdlEvent.button.y)){
+                        next_menu_id=4;
+                        shallExit = SDL_TRUE;
                     }
                     break;
             }
@@ -105,15 +111,9 @@ char* main_username_menu() {
     }
     TTF_CloseFont( font1 );
     TTF_CloseFont( font2 );
-    kill_username_menu();
-    char temp_str[100];
-    for(int i=22;i<strlen(user_name);i++)temp_str[i-22]=user_name[i];
-    temp_str[strlen(user_name)-22]='\0';
-    strcpy(user_name,temp_str);
-    if(closed){
-        free(user_name);
-        return NULL;
-    }
-    return user_name;
+    kill_main_menu();
+
+    return next_menu_id;
 }
+
 

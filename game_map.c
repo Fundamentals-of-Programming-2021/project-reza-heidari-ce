@@ -63,13 +63,22 @@ void add_border_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH]){
         map[i][SCREEN_WIDTH-1]=-1;
     }
 }
+int place_check_game_map(region *regions,int region_index,int x,int y){
+    if(x<50 || x>SCREEN_WIDTH-50)return 0;
+    if(y<50 || y>SCREEN_HEIGHT-50)return 0;
+    for(int i=0;i<region_index;i++){
+        int dist=(regions[i].center_x-x)*(regions[i].center_x-x)+(regions[i].center_y-y)*(regions[i].center_y-y);
+        if(dist<5000)return 0;
+    }
+    return 1;
+}
 void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int cnt_each,int initial_pawn_cnt,region *regions){
     int region_index=0;
     for(int j=1;j<=cnt_each;j++) {
         for(int i=1;i<=cnt;i++){
             int start_x = rand() % SCREEN_WIDTH;
             int start_y = rand() % SCREEN_HEIGHT;
-            while (map[start_y][start_x] != 0) {
+            while (map[start_y][start_x] != 0 || place_check_game_map(regions,region_index,start_x,start_y)==0) {
                 start_x = rand() % SCREEN_WIDTH;
                 start_y = rand() % SCREEN_HEIGHT;
             }
@@ -269,6 +278,22 @@ int get_region_id_game_map(region *regions,int cnt_regions,int x,int y){
     }
     return -1;
 }
+int deploy_game_map(region *regions,pawn *moving_pawns,int cnt_moving_pawns,int selected_source_region,int selected_dest_region){
+    for(int i=0;i<regions[selected_source_region].pawn_cnt;i++){
+        moving_pawns[cnt_moving_pawns].current_x=regions[selected_source_region].center_x;
+        moving_pawns[cnt_moving_pawns].current_y=regions[selected_source_region].center_y;
+        moving_pawns[cnt_moving_pawns].dest_x=regions[selected_dest_region].center_x;
+        moving_pawns[cnt_moving_pawns].dest_y=regions[selected_dest_region].center_y;
+        moving_pawns[cnt_moving_pawns].source_x=regions[selected_source_region].center_x;
+        moving_pawns[cnt_moving_pawns].source_y=regions[selected_source_region].center_y;
+        moving_pawns[cnt_moving_pawns].region_dest=selected_dest_region;
+        moving_pawns[cnt_moving_pawns].region_source=selected_source_region;
+        moving_pawns[cnt_moving_pawns].color=regions[selected_source_region].color;
+        moving_pawns[cnt_moving_pawns].visible_after=i*4;
+        cnt_moving_pawns++;
+    }
+    return cnt_moving_pawns;
+}
 void main_game_map(){
     init_game_map();
     srand(time(NULL));
@@ -317,21 +342,7 @@ void main_game_map(){
                         selected_dest_region=-1;
                     }
                     else{
-                        for(int i=0;i<regions[selected_source_region].pawn_cnt;i++){
-                            moving_pawns[cnt_moving_pawns].current_x=regions[selected_source_region].center_x;
-                            moving_pawns[cnt_moving_pawns].current_y=regions[selected_source_region].center_y;
-                            moving_pawns[cnt_moving_pawns].dest_x=regions[selected_dest_region].center_x;
-                            moving_pawns[cnt_moving_pawns].dest_y=regions[selected_dest_region].center_y;
-                            moving_pawns[cnt_moving_pawns].source_x=regions[selected_source_region].center_x;
-                            moving_pawns[cnt_moving_pawns].source_y=regions[selected_source_region].center_y;
-                            moving_pawns[cnt_moving_pawns].region_dest=selected_dest_region;
-                            moving_pawns[cnt_moving_pawns].region_source=selected_source_region;
-                            moving_pawns[cnt_moving_pawns].color=regions[selected_source_region].color;
-                            moving_pawns[cnt_moving_pawns].visible_after=i*4;
-                            cnt_moving_pawns++;
-                        }
-                        //regions[selected_source_region].pawn_cnt=0;
-                        //printf("bb %d\n",cnt_moving_pawns);
+                        cnt_moving_pawns=deploy_game_map(regions,moving_pawns,cnt_moving_pawns,selected_source_region,selected_dest_region);
                     }
                     break;
             }
@@ -342,6 +353,4 @@ void main_game_map(){
 
 
     kill_game_map();
-
-
 }

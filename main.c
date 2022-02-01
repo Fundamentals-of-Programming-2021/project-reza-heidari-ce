@@ -10,6 +10,7 @@
 #include <string.h>
 #include "username_menu.h"
 #include "game_map.h"
+#include "main_menu.h"
 int init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -34,9 +35,18 @@ void kill() {
 int main() {
     init();
     char *user_name=main_username_menu();
+    if(user_name==NULL){
+        kill();
+        return 0;
+    }
     printf("%s",user_name);
 
-    main_game_map();
+    int next_menu_id=main_main_menu();
+    if(next_menu_id==-1){
+        kill();
+        return 0;
+    }
+    if(next_menu_id==1)main_game_map();
 
     free(user_name);
     kill();

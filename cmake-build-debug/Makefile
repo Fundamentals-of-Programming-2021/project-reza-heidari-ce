@@ -177,6 +177,30 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/main.c.s
 .PHONY : main.c.s
 
+main_menu.o: main_menu.c.o
+.PHONY : main_menu.o
+
+# target to build an object file
+main_menu.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/main_menu.c.o
+.PHONY : main_menu.c.o
+
+main_menu.i: main_menu.c.i
+.PHONY : main_menu.i
+
+# target to preprocess a source file
+main_menu.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/main_menu.c.i
+.PHONY : main_menu.c.i
+
+main_menu.s: main_menu.c.s
+.PHONY : main_menu.s
+
+# target to generate assembly for a file
+main_menu.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/main_menu.c.s
+.PHONY : main_menu.c.s
+
 username_menu.o: username_menu.c.o
 .PHONY : username_menu.o
 
@@ -216,6 +240,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... main_menu.o"
+	@echo "... main_menu.i"
+	@echo "... main_menu.s"
 	@echo "... username_menu.o"
 	@echo "... username_menu.i"
 	@echo "... username_menu.s"
