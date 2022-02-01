@@ -23,7 +23,7 @@ struct pawn{
     int current_x,current_y;
     int dest_x,dest_y;
     int source_x,source_y;
-    int region_dest;
+    int region_dest,region_source;
     int color;
     int visible_after;
 };
@@ -180,27 +180,18 @@ void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int 
 int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,region *regions,int cnt_moving_pawns){
     pawn temp[3000];
     int index=0;
-    for(int i=0;i<cnt_moving_pawns;i++){
-       /* int speed_x,speed_y;
-        double slope;
-        if(abs(moving_pawns[i].dest_x-moving_pawns[i].current_x)>abs(moving_pawns[i].dest_y-moving_pawns[i].current_y)) {
-            speed_x = 3;
-            if (moving_pawns[i].dest_x < moving_pawns[i].current_x)speed_x *= -1;
-                slope = ((double) (moving_pawns[i].dest_y - moving_pawns[i].current_y)) /
-                           ((double) (moving_pawns[i].dest_x - moving_pawns[i].current_x));
-            speed_y = (int) (((double) speed_x) * slope);
-        }
-        else{
-            speed_y = 3;
-            if (moving_pawns[i].dest_y < moving_pawns[i].current_y)speed_y *= -1;
-            slope = ((double) (moving_pawns[i].dest_x - moving_pawns[i].current_x)) /
-                    ((double) (moving_pawns[i].dest_y - moving_pawns[i].current_y));
-            speed_x = (int) (((double) speed_y) * slope);
-        }*/
 
-        if(moving_pawns[i].visible_after>0)(moving_pawns[i].visible_after)--;
+    for(int i=0;i<cnt_moving_pawns;i++){
+        if(moving_pawns[i].visible_after>0){
+            (moving_pawns[i].visible_after)--;
+            temp[index]=moving_pawns[i];
+            index++;
+        }
         else {
-            //
+            if(moving_pawns[i].visible_after==0){
+                (regions[moving_pawns[i].region_source].pawn_cnt)--;
+                moving_pawns[i].visible_after=-1;
+            }
             int speed_x,speed_y;
             double slope;
             if(abs(moving_pawns[i].dest_x-moving_pawns[i].source_x)>abs(moving_pawns[i].dest_y-moving_pawns[i].source_y)) {
@@ -219,16 +210,7 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
                 moving_pawns[i].current_y = moving_pawns[i].current_y + speed_y;
                 moving_pawns[i].current_x = ((int)(slope * ((double)(moving_pawns[i].current_y-moving_pawns[i].source_y)))) + (moving_pawns[i].source_x);
             }
-            //
-
-
-
-
-
-           // moving_pawns[i].current_x = moving_pawns[i].current_x + speed_x;
-            //moving_pawns[i].current_y = moving_pawns[i].current_y + speed_y;
             if(abs(moving_pawns[i].current_x-moving_pawns[i].dest_x)<5 && abs(moving_pawns[i].current_y-moving_pawns[i].dest_y)<5){
-                cnt_moving_pawns--;
                 if(regions[moving_pawns[i].region_dest].color==moving_pawns[i].color){
                     (regions[moving_pawns[i].region_dest].pawn_cnt)++;
                 }
@@ -244,17 +226,37 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
                 }
             }
             else{
-                if(moving_pawns[i].color==1)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,5,0xff,0x00,0x00,0xff);
-                if(moving_pawns[i].color==2)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,5,0x00,0xff,0x00,0xff);
-                if(moving_pawns[i].color==3)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,5,0x00,0x00,0xff,0xff);
-
                 temp[index]=moving_pawns[i];
                 index++;
             }
         }
     }
+    int circle_radius=5;
+    cnt_moving_pawns=0;
     for(int i=0;i<index;i++){
-        moving_pawns[i]=temp[i];
+        if(temp[i].current_x==-1)continue;
+        for(int j=0;j<index;j++){
+            if(j==i || temp[i].color==temp[j].color)continue;
+            if(temp[j].current_x==-1)continue;
+            int dest=(temp[i].current_x-temp[j].current_x)*(temp[i].current_x-temp[j].current_x);
+            dest+=(temp[i].current_y-temp[j].current_y)*(temp[i].current_y-temp[j].current_y);
+            if(dest<=2*(circle_radius*circle_radius)){
+                temp[i].current_x=-1;
+                temp[j].current_x=-1;
+                break;
+            }
+        }
+        if(temp[i].current_x!=-1){
+            moving_pawns[cnt_moving_pawns]=temp[i];
+            cnt_moving_pawns++;
+        }
+    }
+
+    for(int i=0;i<cnt_moving_pawns;i++){
+        if(moving_pawns[i].visible_after>0)continue;
+        if(moving_pawns[i].color==1)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,circle_radius,0xff,0x00,0x00,0xff);
+        if(moving_pawns[i].color==2)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,circle_radius,0x00,0xff,0x00,0xff);
+        if(moving_pawns[i].color==3)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,circle_radius,0x00,0x00,0xff,0xff);
     }
     return cnt_moving_pawns;
 }
@@ -323,11 +325,12 @@ void main_game_map(){
                             moving_pawns[cnt_moving_pawns].source_x=regions[selected_source_region].center_x;
                             moving_pawns[cnt_moving_pawns].source_y=regions[selected_source_region].center_y;
                             moving_pawns[cnt_moving_pawns].region_dest=selected_dest_region;
+                            moving_pawns[cnt_moving_pawns].region_source=selected_source_region;
                             moving_pawns[cnt_moving_pawns].color=regions[selected_source_region].color;
                             moving_pawns[cnt_moving_pawns].visible_after=i*4;
                             cnt_moving_pawns++;
                         }
-                        regions[selected_source_region].pawn_cnt=0;
+                        //regions[selected_source_region].pawn_cnt=0;
                         //printf("bb %d\n",cnt_moving_pawns);
                     }
                     break;
