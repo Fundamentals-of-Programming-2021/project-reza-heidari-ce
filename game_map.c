@@ -22,6 +22,7 @@ static SDL_Renderer* renderer;
 struct pawn{
     int current_x,current_y;
     int dest_x,dest_y;
+    int source_x,source_y;
     int region_dest;
     int color;
     int visible_after;
@@ -180,7 +181,7 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
     pawn temp[3000];
     int index=0;
     for(int i=0;i<cnt_moving_pawns;i++){
-        int speed_x,speed_y;
+       /* int speed_x,speed_y;
         double slope;
         if(abs(moving_pawns[i].dest_x-moving_pawns[i].current_x)>abs(moving_pawns[i].dest_y-moving_pawns[i].current_y)) {
             speed_x = 3;
@@ -195,12 +196,37 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
             slope = ((double) (moving_pawns[i].dest_x - moving_pawns[i].current_x)) /
                     ((double) (moving_pawns[i].dest_y - moving_pawns[i].current_y));
             speed_x = (int) (((double) speed_y) * slope);
-        }
+        }*/
 
         if(moving_pawns[i].visible_after>0)(moving_pawns[i].visible_after)--;
         else {
-            moving_pawns[i].current_x = moving_pawns[i].current_x + speed_x;
-            moving_pawns[i].current_y = moving_pawns[i].current_y + speed_y;
+            //
+            int speed_x,speed_y;
+            double slope;
+            if(abs(moving_pawns[i].dest_x-moving_pawns[i].source_x)>abs(moving_pawns[i].dest_y-moving_pawns[i].source_y)) {
+                speed_x = 3;
+                if (moving_pawns[i].dest_x < moving_pawns[i].source_x)speed_x *= -1;
+                slope = ((double) (moving_pawns[i].dest_y - moving_pawns[i].source_y)) /
+                        ((double) (moving_pawns[i].dest_x - moving_pawns[i].source_x));
+                moving_pawns[i].current_x = moving_pawns[i].current_x + speed_x;
+                moving_pawns[i].current_y = ((int)(slope * ((double)(moving_pawns[i].current_x-moving_pawns[i].source_x)))) + (moving_pawns[i].source_y);
+            }
+            else{
+                speed_y = 3;
+                if (moving_pawns[i].dest_y < moving_pawns[i].source_y)speed_y *= -1;
+                slope = ((double) (moving_pawns[i].dest_x - moving_pawns[i].source_x)) /
+                        ((double) (moving_pawns[i].dest_y - moving_pawns[i].source_y));
+                moving_pawns[i].current_y = moving_pawns[i].current_y + speed_y;
+                moving_pawns[i].current_x = ((int)(slope * ((double)(moving_pawns[i].current_y-moving_pawns[i].source_y)))) + (moving_pawns[i].source_x);
+            }
+            //
+
+
+
+
+
+           // moving_pawns[i].current_x = moving_pawns[i].current_x + speed_x;
+            //moving_pawns[i].current_y = moving_pawns[i].current_y + speed_y;
             if(abs(moving_pawns[i].current_x-moving_pawns[i].dest_x)<5 && abs(moving_pawns[i].current_y-moving_pawns[i].dest_y)<5){
                 cnt_moving_pawns--;
                 if(regions[moving_pawns[i].region_dest].color==moving_pawns[i].color){
@@ -258,7 +284,7 @@ void main_game_map(){
 
     SDL_bool shallExit = SDL_FALSE;
     while (shallExit == SDL_FALSE) {
-        frame=(frame+1)%60;
+        frame=(frame+1)%30;
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
         SDL_RenderClear(renderer);
 
@@ -294,9 +320,11 @@ void main_game_map(){
                             moving_pawns[cnt_moving_pawns].current_y=regions[selected_source_region].center_y;
                             moving_pawns[cnt_moving_pawns].dest_x=regions[selected_dest_region].center_x;
                             moving_pawns[cnt_moving_pawns].dest_y=regions[selected_dest_region].center_y;
+                            moving_pawns[cnt_moving_pawns].source_x=regions[selected_source_region].center_x;
+                            moving_pawns[cnt_moving_pawns].source_y=regions[selected_source_region].center_y;
                             moving_pawns[cnt_moving_pawns].region_dest=selected_dest_region;
                             moving_pawns[cnt_moving_pawns].color=regions[selected_source_region].color;
-                            moving_pawns[cnt_moving_pawns].visible_after=i*3;
+                            moving_pawns[cnt_moving_pawns].visible_after=i*4;
                             cnt_moving_pawns++;
                         }
                         regions[selected_source_region].pawn_cnt=0;
