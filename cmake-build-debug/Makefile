@@ -153,6 +153,30 @@ game_map.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/game_map.c.s
 .PHONY : game_map.c.s
 
+leaderboard.o: leaderboard.c.o
+.PHONY : leaderboard.o
+
+# target to build an object file
+leaderboard.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/leaderboard.c.o
+.PHONY : leaderboard.c.o
+
+leaderboard.i: leaderboard.c.i
+.PHONY : leaderboard.i
+
+# target to preprocess a source file
+leaderboard.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/leaderboard.c.i
+.PHONY : leaderboard.c.i
+
+leaderboard.s: leaderboard.c.s
+.PHONY : leaderboard.s
+
+# target to generate assembly for a file
+leaderboard.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/leaderboard.c.s
+.PHONY : leaderboard.c.s
+
 main.o: main.c.o
 .PHONY : main.o
 
@@ -237,6 +261,9 @@ help:
 	@echo "... game_map.o"
 	@echo "... game_map.i"
 	@echo "... game_map.s"
+	@echo "... leaderboard.o"
+	@echo "... leaderboard.i"
+	@echo "... leaderboard.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

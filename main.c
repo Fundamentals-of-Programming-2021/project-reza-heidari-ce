@@ -11,6 +11,7 @@
 #include "username_menu.h"
 #include "game_map.h"
 #include "main_menu.h"
+#include "leaderboard.h"
 int init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -47,6 +48,7 @@ int main() {
         return 0;
     }
     if(next_menu_id==1)main_game_map();
+    if(next_menu_id==3)main_leaderboard();
 
     free(user_name);
     kill();

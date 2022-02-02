@@ -68,14 +68,16 @@ int place_check_game_map(region *regions,int region_index,int x,int y){
     if(y<50 || y>SCREEN_HEIGHT-50)return 0;
     for(int i=0;i<region_index;i++){
         int dist=(regions[i].center_x-x)*(regions[i].center_x-x)+(regions[i].center_y-y)*(regions[i].center_y-y);
-        if(dist<5000)return 0;
+        if(dist<10000)return 0;
     }
     return 1;
 }
-void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int cnt_each,int initial_pawn_cnt,region *regions){
+void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int cnt_each,int cnt_neutral,int initial_pawn_cnt,region *regions){
     int region_index=0;
-    for(int j=1;j<=cnt_each;j++) {
+    for(int j=1;j<=cnt_each || j<=cnt_neutral;j++) {
         for(int i=1;i<=cnt;i++){
+            if(i==4 && j>cnt_neutral)continue;
+            if(i!=4 && j>cnt_each)continue;
             int start_x = rand() % SCREEN_WIDTH;
             int start_y = rand() % SCREEN_HEIGHT;
             while (map[start_y][start_x] != 0 || place_check_game_map(regions,region_index,start_x,start_y)==0) {
@@ -172,10 +174,19 @@ void change_region_color_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int color
 void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int cnt_regions){
     for(int i=0;i<SCREEN_HEIGHT;i++){
         for(int j=0;j<SCREEN_WIDTH;j++){
-            if(map[i][j]==1)pixelRGBA(renderer,j,i,0xee,0x4b,0x2b,0xff);
-            if(map[i][j]==2)pixelRGBA(renderer,j,i,0x22,0xd6,0xc0,0xff);
-            if(map[i][j]==3)pixelRGBA(renderer,j,i,0x9b,0xa0,0xdb,0xff);
+            //red
+            if(map[i][j]==1)pixelRGBA(renderer,j,i,0xff,0x55,0x55,0xff);
+            //green
+            if(map[i][j]==2)pixelRGBA(renderer,j,i,0x00,0xa0,0x00,0xff);
+            //blue
+            if(map[i][j]==3)pixelRGBA(renderer,j,i,0xad,0x77,0xff,0xff);
+            //yellow
+            if(map[i][j]==5)pixelRGBA(renderer,j,i,0xf0,0xff,0x55,0xff);
+
+
+            //neutral
             if(map[i][j]==4)pixelRGBA(renderer,j,i,0xff,0xfd,0xd0,0xff);
+            //black border
             if(map[i][j]==-1)pixelRGBA(renderer,j,i,0x00,0x00,0x00,0xff);
         }
     }
@@ -198,7 +209,7 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
         }
         else {
             if(moving_pawns[i].visible_after==0){
-                (regions[moving_pawns[i].region_source].pawn_cnt)--;
+                if(regions[moving_pawns[i].region_source].pawn_cnt>0)(regions[moving_pawns[i].region_source].pawn_cnt)--;
                 moving_pawns[i].visible_after=-1;
             }
             int speed_x,speed_y;
@@ -266,6 +277,8 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
         if(moving_pawns[i].color==1)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,circle_radius,0xff,0x00,0x00,0xff);
         if(moving_pawns[i].color==2)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,circle_radius,0x00,0xff,0x00,0xff);
         if(moving_pawns[i].color==3)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,circle_radius,0x00,0x00,0xff,0xff);
+        if(moving_pawns[i].color==5)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,circle_radius,0x88,0xff,0x00,0xff);
+
     }
     return cnt_moving_pawns;
 }
@@ -297,17 +310,36 @@ int deploy_game_map(region *regions,pawn *moving_pawns,int cnt_moving_pawns,int 
 void main_game_map(){
     init_game_map();
     srand(time(NULL));
-
     int map[SCREEN_HEIGHT][SCREEN_WIDTH]={0};
     region regions[20];
-    int cnt_regions=4;
-    create_random_map_game_map(map,4,1,10,regions);
+
+    //
+    int cnt_colors=4;
+    int cnt_each=1;
+    int cnt_neutral=4;
+    int cnt_regions=cnt_colors*cnt_each+cnt_neutral;
+    int initial_pawn_cnt=10;
+    int max_pawns=50;
+    int players_color=1;
+    //
+
+    create_random_map_game_map(map,cnt_colors+1,cnt_each,cnt_neutral,initial_pawn_cnt,regions);
     pawn moving_pawns[3000];
     int cnt_moving_pawns=0;
-    int max_soldiers=50;
     int frame=0;
-
     int selected_source_region=-1,selected_dest_region=-1;
+
+    SDL_Texture *potion1_texture= IMG_LoadTexture(renderer,"../potion_1.png");
+    SDL_Rect potion1_texture_rect = {.x=100, .y=100, .w=40, .h=64};
+
+    SDL_Texture *potion2_texture= IMG_LoadTexture(renderer,"../potion_2.png");
+    SDL_Rect potion2_texture_rect = {.x=200, .y=200, .w=40, .h=50};
+
+    SDL_Texture *potion3_texture= IMG_LoadTexture(renderer,"../potion_3.png");
+    SDL_Rect potion3_texture_rect = {.x=300, .y=300, .w=40, .h=55};
+
+    SDL_Texture *potion4_texture= IMG_LoadTexture(renderer,"../potion_4.png");
+    SDL_Rect potion4_texture_rect = {.x=400, .y=100, .w=40, .h=40};
 
     SDL_bool shallExit = SDL_FALSE;
     while (shallExit == SDL_FALSE) {
@@ -319,12 +351,14 @@ void main_game_map(){
 
         if(frame==0){
             for(int i=0;i<cnt_regions;i++){
-                if(regions[i].color!=4 && regions[i].pawn_cnt<max_soldiers)(regions[i].pawn_cnt) += regions[i].growth_rate;
+                if(regions[i].color!=4 && regions[i].pawn_cnt<max_pawns)(regions[i].pawn_cnt) += regions[i].growth_rate;
+                if(regions[i].color==4 && regions[i].pawn_cnt<initial_pawn_cnt)(regions[i].pawn_cnt) += regions[i].growth_rate;
             }
         }
 
-
         cnt_moving_pawns=move_pawns_game_map(map,moving_pawns,regions,cnt_moving_pawns);
+
+
 
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
@@ -337,7 +371,7 @@ void main_game_map(){
                     break;
                 case SDL_MOUSEBUTTONUP:
                     selected_dest_region = get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
-                    if(selected_source_region==-1 || selected_dest_region==-1 || selected_source_region==selected_dest_region || regions[selected_source_region].color==4){
+                    if(selected_source_region==-1 || selected_dest_region==-1 || selected_source_region==selected_dest_region || regions[selected_source_region].color!=players_color){
                         selected_source_region=-1;
                         selected_dest_region=-1;
                     }
@@ -352,5 +386,9 @@ void main_game_map(){
     }
 
 
+    SDL_DestroyTexture(potion1_texture);
+    SDL_DestroyTexture(potion2_texture);
+    SDL_DestroyTexture(potion3_texture);
+    SDL_DestroyTexture(potion4_texture);
     kill_game_map();
 }

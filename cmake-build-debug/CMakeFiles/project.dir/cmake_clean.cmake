@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/project.dir/game_map.c.o"
   "CMakeFiles/project.dir/game_map.c.o.d"
+  "CMakeFiles/project.dir/leaderboard.c.o"
+  "CMakeFiles/project.dir/leaderboard.c.o.d"
   "CMakeFiles/project.dir/main.c.o"
   "CMakeFiles/project.dir/main.c.o.d"
   "CMakeFiles/project.dir/main_menu.c.o"

@@ -1,8 +1,9 @@
-CMakeFiles/project.dir/main.c.o: \
- /mnt/c/sharif/c\ how\ to\ program/project/main.c \
- /usr/include/stdc-predef.h /usr/include/SDL2/SDL.h \
- /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_stdinc.h \
- /usr/include/SDL2/SDL_config.h \
+CMakeFiles/project.dir/leaderboard.c.o: \
+ /mnt/c/sharif/c\ how\ to\ program/project/leaderboard.c \
+ /usr/include/stdc-predef.h \
+ /mnt/c/sharif/c\ how\ to\ program/project/leaderboard.h \
+ /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
+ /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h \
  /usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h \
  /usr/include/SDL2/SDL_platform.h /usr/include/SDL2/begin_code.h \
  /usr/include/SDL2/close_code.h /usr/include/x86_64-linux-gnu/sys/types.h \
@@ -156,8 +157,4 @@ CMakeFiles/project.dir/main.c.o: \
  /usr/include/time.h /usr/include/x86_64-linux-gnu/bits/time.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
- /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
- /mnt/c/sharif/c\ how\ to\ program/project/username_menu.h \
- /mnt/c/sharif/c\ how\ to\ program/project/game_map.h \
- /mnt/c/sharif/c\ how\ to\ program/project/main_menu.h \
- /mnt/c/sharif/c\ how\ to\ program/project/leaderboard.h
+ /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h
