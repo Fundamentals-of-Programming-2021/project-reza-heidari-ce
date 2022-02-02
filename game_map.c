@@ -33,6 +33,11 @@ struct region{
     int growth_rate;
     int color;
 };
+struct potion{
+    int potion_type;
+    int x,y;
+    int time_remaining;
+};
 void init_game_map() {
     window = SDL_CreateWindow("State.io", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               SCREEN_WIDTH,
@@ -215,7 +220,7 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
             int speed_x,speed_y;
             double slope;
             if(abs(moving_pawns[i].dest_x-moving_pawns[i].source_x)>abs(moving_pawns[i].dest_y-moving_pawns[i].source_y)) {
-                speed_x = 3;
+                speed_x = 2;
                 if (moving_pawns[i].dest_x < moving_pawns[i].source_x)speed_x *= -1;
                 slope = ((double) (moving_pawns[i].dest_y - moving_pawns[i].source_y)) /
                         ((double) (moving_pawns[i].dest_x - moving_pawns[i].source_x));
@@ -223,7 +228,7 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
                 moving_pawns[i].current_y = ((int)(slope * ((double)(moving_pawns[i].current_x-moving_pawns[i].source_x)))) + (moving_pawns[i].source_y);
             }
             else{
-                speed_y = 3;
+                speed_y = 2;
                 if (moving_pawns[i].dest_y < moving_pawns[i].source_y)speed_y *= -1;
                 slope = ((double) (moving_pawns[i].dest_x - moving_pawns[i].source_x)) /
                         ((double) (moving_pawns[i].dest_y - moving_pawns[i].source_y));
@@ -302,10 +307,48 @@ int deploy_game_map(region *regions,pawn *moving_pawns,int cnt_moving_pawns,int 
         moving_pawns[cnt_moving_pawns].region_dest=selected_dest_region;
         moving_pawns[cnt_moving_pawns].region_source=selected_source_region;
         moving_pawns[cnt_moving_pawns].color=regions[selected_source_region].color;
-        moving_pawns[cnt_moving_pawns].visible_after=i*4;
+        moving_pawns[cnt_moving_pawns].visible_after=i*5;
         cnt_moving_pawns++;
     }
     return cnt_moving_pawns;
+}
+int is_reachable(region *regions,int cnt_regions,int x,int y){
+    if(x<50 || x>SCREEN_WIDTH-50)return 0;
+    if(y<50 || y>SCREEN_HEIGHT-50)return 0;
+    for(int i=0;i<cnt_regions;i++){
+        int dist=(regions[i].center_x-x)*(regions[i].center_x-x)+(regions[i].center_y-y)*(regions[i].center_y-y);
+        if(dist<50000)continue;
+        for(int j=0;j<i;j++){
+            if(regions[i].color==4 && regions[j].color==4)continue;
+            if((x>regions[i].center_x && x>regions[j].center_x) || (x<regions[i].center_x && x<regions[j].center_x))continue;
+            if((y>regions[i].center_y && y>regions[j].center_y) || (y<regions[i].center_y && y<regions[j].center_y))continue;
+            double slope;
+            if(abs(regions[i].center_x-regions[j].center_x)>abs(regions[i].center_y-regions[j].center_y)) {
+                slope = ((double) (regions[i].center_y-regions[j].center_y)) /
+                        ((double) (regions[i].center_x-regions[j].center_x));
+                double slope_difference=((double)(y-regions[i].center_y))/((double)(x-regions[i].center_x)) - slope;
+                if(slope_difference < 0)slope_difference=slope_difference  * (-1.0);
+                if(slope_difference < 0.1)return 1;
+            }
+            else{
+                slope = ((double) (regions[i].center_x-regions[j].center_x)) /
+                        ((double) (regions[i].center_y-regions[j].center_y));
+                double slope_difference=((double)(x-regions[i].center_x))/((double)(y-regions[i].center_y)) - slope;
+                if(slope_difference < 0)slope_difference=slope_difference  * (-1.0);
+                if(slope_difference < 0.1)return 1;
+            }
+        }
+    }
+    return 0;
+
+}
+void random_potion_coordinate(region *regions,int cnt_regions,int *x,int *y){
+    *x=rand()%SCREEN_WIDTH;
+    *y=rand()%SCREEN_HEIGHT;
+    while(!is_reachable(regions,cnt_regions,*x,*y) ){
+        *x=rand()%SCREEN_WIDTH;
+        *y=rand()%SCREEN_HEIGHT;
+    }
 }
 void main_game_map(){
     init_game_map();

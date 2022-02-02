@@ -19,6 +19,7 @@ enum{SCREEN_WIDTH = 600};
 enum{SCREEN_HEIGHT = 400};
 typedef struct pawn pawn;
 typedef struct region region;
+typedef struct potion potion;
 void init_game_map();
 void kill_game_map();
 void main_game_map();
@@ -30,5 +31,6 @@ void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int 
 int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,region *regions,int cnt_moving_pawns);
 int get_region_id_game_map(region *regions,int cnt_regions,int x,int y);
 int deploy_game_map(region *regions,pawn *moving_pawns,int cnt_moving_pawns,int selected_source_region,int selected_dest_region);
-
+int is_reachable(region *regions,int cnt_regions,int x,int y);
+void random_potion_coordinate(region *regions,int cnt_regions,int *x,int *y);
 #endif //PROJECT_GAME_MAP_H
