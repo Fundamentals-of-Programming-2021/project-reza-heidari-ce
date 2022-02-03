@@ -40,14 +40,18 @@ int main() {
         kill();
         return 0;
     }
-    printf("%s",user_name);
+    printf("%s\n",user_name);
 
     int next_menu_id=main_main_menu();
     if(next_menu_id==-1){
         kill();
         return 0;
     }
-    if(next_menu_id==1)main_game_map();
+    if(next_menu_id==1){
+        int winner;
+        winner=main_game_map();
+        printf("%d\n",winner);
+    }
     if(next_menu_id==3)main_leaderboard();
 
     free(user_name);

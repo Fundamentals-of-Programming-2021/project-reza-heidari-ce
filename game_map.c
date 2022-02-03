@@ -387,6 +387,14 @@ int process_potions_game_map(region *regions,int cnt_regions,pawn *moving_pawns,
             int dist=(moving_pawns[j].current_x-potions[i].x)*(moving_pawns[j].current_x-potions[i].x);
             dist+=(moving_pawns[j].current_y-potions[i].y)*(moving_pawns[j].current_y-potions[i].y);
             if(dist<1000){
+                int already_has_potion=0;
+                for(int u=0;u<10;u++){
+                    if(color_potions[moving_pawns[j].color][u]!=0) {
+                        already_has_potion=1;
+                        break;
+                    }
+                }
+                if(already_has_potion)continue;
                 flag=1;
                 color_potions[moving_pawns[j].color][potions[i].potion_type]=300;
                 break;
@@ -423,7 +431,7 @@ int process_potions_game_map(region *regions,int cnt_regions,pawn *moving_pawns,
     }
     return cnt_potions;
 }
-void main_game_map(){
+int main_game_map(){
     init_game_map();
     srand(time(NULL));
     int map[SCREEN_HEIGHT][SCREEN_WIDTH]={0};
@@ -454,6 +462,8 @@ void main_game_map(){
     potion4_texture= IMG_LoadTexture(renderer,"../potion_4.png");
     SDL_Rect potion_texture_rect = {.x=200, .y=200, .w=40, .h=50};
 
+    int winner=-1;
+
     SDL_bool shallExit = SDL_FALSE;
     while (shallExit == SDL_FALSE) {
         frame=(frame+1)%30;
@@ -481,6 +491,15 @@ void main_game_map(){
         cnt_moving_pawns=move_pawns_game_map(map,moving_pawns,regions,cnt_moving_pawns,color_potions);
 
         cnt_potions=process_potions_game_map(regions,cnt_regions,moving_pawns,cnt_moving_pawns,potions,cnt_potions,color_potions,potion_texture_rect);
+
+        int finished=1;
+        for(int i=1;i<cnt_regions;i++){
+            if(regions[i].color!=regions[i-1].color)finished=0;
+        }
+        if(finished){
+            winner=regions[0].color;
+            shallExit=true;
+        }
 
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
@@ -513,4 +532,5 @@ void main_game_map(){
     SDL_DestroyTexture(potion3_texture);
     SDL_DestroyTexture(potion4_texture);
     kill_game_map();
+    return winner;
 }
