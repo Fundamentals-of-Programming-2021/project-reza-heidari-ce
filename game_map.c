@@ -18,6 +18,10 @@ static const int FPS = 60;
 
 static SDL_Window* window;
 static SDL_Renderer* renderer;
+static SDL_Texture *potion1_texture;
+static SDL_Texture *potion2_texture;
+static SDL_Texture *potion3_texture;
+static SDL_Texture *potion4_texture;
 
 struct pawn{
     int current_x,current_y;
@@ -202,11 +206,24 @@ void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int 
         stringRGBA(renderer,regions[i].center_x,regions[i].center_y,temp_str,0x00,0x00,0x00,0xff);
     }
 }
-int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,region *regions,int cnt_moving_pawns){
+int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,region *regions,int cnt_moving_pawns,int color_potions[10][10]){
     pawn temp[3000];
     int index=0;
 
     for(int i=0;i<cnt_moving_pawns;i++){
+        int flag=0;
+        for(int j=0;j<10;j++){
+            if(color_potions[j][2]!=0 && moving_pawns[i].color!=j){
+                flag=1;
+                break;
+            }
+        }
+        if(flag){
+            temp[index]=moving_pawns[i];
+            index++;
+            continue;
+        }
+
         if(moving_pawns[i].visible_after>0){
             (moving_pawns[i].visible_after)--;
             temp[index]=moving_pawns[i];
@@ -221,6 +238,7 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
             double slope;
             if(abs(moving_pawns[i].dest_x-moving_pawns[i].source_x)>abs(moving_pawns[i].dest_y-moving_pawns[i].source_y)) {
                 speed_x = 2;
+                if(color_potions[moving_pawns[i].color][1]!=0)speed_x*=2;
                 if (moving_pawns[i].dest_x < moving_pawns[i].source_x)speed_x *= -1;
                 slope = ((double) (moving_pawns[i].dest_y - moving_pawns[i].source_y)) /
                         ((double) (moving_pawns[i].dest_x - moving_pawns[i].source_x));
@@ -229,6 +247,7 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
             }
             else{
                 speed_y = 2;
+                if(color_potions[moving_pawns[i].color][1]!=0)speed_y*=2;
                 if (moving_pawns[i].dest_y < moving_pawns[i].source_y)speed_y *= -1;
                 slope = ((double) (moving_pawns[i].dest_x - moving_pawns[i].source_x)) /
                         ((double) (moving_pawns[i].dest_y - moving_pawns[i].source_y));
@@ -296,7 +315,7 @@ int get_region_id_game_map(region *regions,int cnt_regions,int x,int y){
     }
     return -1;
 }
-int deploy_game_map(region *regions,pawn *moving_pawns,int cnt_moving_pawns,int selected_source_region,int selected_dest_region){
+int deploy_game_map(region *regions,pawn *moving_pawns,int cnt_moving_pawns,int selected_source_region,int selected_dest_region,int color_potions[10][10]){
     for(int i=0;i<regions[selected_source_region].pawn_cnt;i++){
         moving_pawns[cnt_moving_pawns].current_x=regions[selected_source_region].center_x;
         moving_pawns[cnt_moving_pawns].current_y=regions[selected_source_region].center_y;
@@ -312,43 +331,97 @@ int deploy_game_map(region *regions,pawn *moving_pawns,int cnt_moving_pawns,int 
     }
     return cnt_moving_pawns;
 }
-int is_reachable(region *regions,int cnt_regions,int x,int y){
+int is_reachable_game_map(region *regions,int cnt_regions,int x,int y){
     if(x<50 || x>SCREEN_WIDTH-50)return 0;
     if(y<50 || y>SCREEN_HEIGHT-50)return 0;
     for(int i=0;i<cnt_regions;i++){
-        int dist=(regions[i].center_x-x)*(regions[i].center_x-x)+(regions[i].center_y-y)*(regions[i].center_y-y);
-        if(dist<50000)continue;
         for(int j=0;j<i;j++){
+            int dist_region_source=(regions[i].center_x-x)*(regions[i].center_x-x)+(regions[i].center_y-y)*(regions[i].center_y-y);
+            int dist_region_dest=(regions[j].center_x-x)*(regions[j].center_x-x)+(regions[j].center_y-y)*(regions[j].center_y-y);
+            if(dist_region_source<1500 || dist_region_dest<1500)continue;
+
             if(regions[i].color==4 && regions[j].color==4)continue;
             if((x>regions[i].center_x && x>regions[j].center_x) || (x<regions[i].center_x && x<regions[j].center_x))continue;
             if((y>regions[i].center_y && y>regions[j].center_y) || (y<regions[i].center_y && y<regions[j].center_y))continue;
-            double slope;
-            if(abs(regions[i].center_x-regions[j].center_x)>abs(regions[i].center_y-regions[j].center_y)) {
-                slope = ((double) (regions[i].center_y-regions[j].center_y)) /
-                        ((double) (regions[i].center_x-regions[j].center_x));
-                double slope_difference=((double)(y-regions[i].center_y))/((double)(x-regions[i].center_x)) - slope;
-                if(slope_difference < 0)slope_difference=slope_difference  * (-1.0);
-                if(slope_difference < 0.1)return 1;
-            }
-            else{
-                slope = ((double) (regions[i].center_x-regions[j].center_x)) /
-                        ((double) (regions[i].center_y-regions[j].center_y));
-                double slope_difference=((double)(x-regions[i].center_x))/((double)(y-regions[i].center_y)) - slope;
-                if(slope_difference < 0)slope_difference=slope_difference  * (-1.0);
-                if(slope_difference < 0.1)return 1;
-            }
+
+            int dist1=(regions[i].center_x-x)*(regions[i].center_x-x)+(regions[i].center_y-y)*(regions[i].center_y-y);
+            int dist2=(regions[j].center_x-x)*(regions[j].center_x-x)+(regions[j].center_y-y)*(regions[j].center_y-y);
+            int dist=(regions[i].center_x-regions[j].center_x)*(regions[i].center_x-regions[j].center_x)+(regions[i].center_y-regions[j].center_y)*(regions[i].center_y-regions[j].center_y);
+
+            double actual_dist1=sqrt((double)dist1);
+            double actual_dist2=sqrt((double)dist2);
+            double actual_dist=sqrt((double)dist);
+            double dist_difference=actual_dist-(actual_dist1+actual_dist2);
+
+            if(dist_difference<0)dist_difference = dist_difference * (-1.0);
+            if(dist_difference<1.0)return 1;
         }
     }
     return 0;
 
 }
-void random_potion_coordinate(region *regions,int cnt_regions,int *x,int *y){
-    *x=rand()%SCREEN_WIDTH;
-    *y=rand()%SCREEN_HEIGHT;
-    while(!is_reachable(regions,cnt_regions,*x,*y) ){
+void random_potion_coordinate_game_map(region *regions,int cnt_regions,potion *potions,int cnt_potions,int *x,int *y){
+    *x=0;
+    *y=0;
+    int flag=1;
+    while(flag || !is_reachable_game_map(regions,cnt_regions,*x,*y)){
         *x=rand()%SCREEN_WIDTH;
         *y=rand()%SCREEN_HEIGHT;
+        flag=0;
+        for(int i=0;i<cnt_potions;i++){
+            int dist=(potions[i].x-*x)*(potions[i].x-*x)+(potions[i].y-*y)*(potions[i].y-*y);
+            if(dist<50000){
+                flag=1;
+                break;
+            }
+        }
     }
+}
+int process_potions_game_map(region *regions,int cnt_regions,pawn *moving_pawns,int cnt_moving_pawns,potion *potions,int cnt_potions,int color_potions[10][10],SDL_Rect potion_texture_rect){
+    potion temp[20];
+    int index=0;
+    for(int i=0;i<cnt_potions;i++){
+
+        int flag=0;
+        for(int j=0;j<cnt_moving_pawns;j++){
+            int dist=(moving_pawns[j].current_x-potions[i].x)*(moving_pawns[j].current_x-potions[i].x);
+            dist+=(moving_pawns[j].current_y-potions[i].y)*(moving_pawns[j].current_y-potions[i].y);
+            if(dist<1000){
+                flag=1;
+                color_potions[moving_pawns[j].color][potions[i].potion_type]=300;
+                break;
+            }
+        }
+        if(flag)continue;
+
+        (potions[i].time_remaining)--;
+        if(potions[i].time_remaining!=0){
+            temp[index]=potions[i];
+            index++;
+        }
+    }
+    for(int i=0;i<index;i++)potions[i]=temp[i];
+    cnt_potions=index;
+    int time_potion_shown=300;
+    int max_potions_shown=2;
+    if(cnt_potions<max_potions_shown && rand()%100==0){
+        int x,y;
+        random_potion_coordinate_game_map(regions,cnt_regions,potions,cnt_potions,&x,&y);
+        potions[cnt_potions].x=x;
+        potions[cnt_potions].y=y;
+        potions[cnt_potions].time_remaining=time_potion_shown;
+        potions[cnt_potions].potion_type=rand()%4+1;
+        cnt_potions++;
+    }
+    for(int i=0;i<cnt_potions;i++){
+        potion_texture_rect.x=potions[i].x-(potion_texture_rect.w / 2);
+        potion_texture_rect.y=potions[i].y-(potion_texture_rect.h / 2);
+        if(potions[i].potion_type==1)SDL_RenderCopy(renderer,potion1_texture,NULL,&potion_texture_rect);
+        else if(potions[i].potion_type==2)SDL_RenderCopy(renderer,potion2_texture,NULL,&potion_texture_rect);
+        else if(potions[i].potion_type==3)SDL_RenderCopy(renderer,potion3_texture,NULL,&potion_texture_rect);
+        else if(potions[i].potion_type==4)SDL_RenderCopy(renderer,potion4_texture,NULL,&potion_texture_rect);
+    }
+    return cnt_potions;
 }
 void main_game_map(){
     init_game_map();
@@ -371,22 +444,25 @@ void main_game_map(){
     int cnt_moving_pawns=0;
     int frame=0;
     int selected_source_region=-1,selected_dest_region=-1;
+    potion potions[20];
+    int cnt_potions=0;
+    int color_potions[10][10]={0};
 
-    SDL_Texture *potion1_texture= IMG_LoadTexture(renderer,"../potion_1.png");
-    SDL_Rect potion1_texture_rect = {.x=100, .y=100, .w=40, .h=64};
-
-    SDL_Texture *potion2_texture= IMG_LoadTexture(renderer,"../potion_2.png");
-    SDL_Rect potion2_texture_rect = {.x=200, .y=200, .w=40, .h=50};
-
-    SDL_Texture *potion3_texture= IMG_LoadTexture(renderer,"../potion_3.png");
-    SDL_Rect potion3_texture_rect = {.x=300, .y=300, .w=40, .h=55};
-
-    SDL_Texture *potion4_texture= IMG_LoadTexture(renderer,"../potion_4.png");
-    SDL_Rect potion4_texture_rect = {.x=400, .y=100, .w=40, .h=40};
+    potion1_texture= IMG_LoadTexture(renderer,"../potion_1.png");
+    potion2_texture= IMG_LoadTexture(renderer,"../potion_2.png");
+    potion3_texture= IMG_LoadTexture(renderer,"../potion_3.png");
+    potion4_texture= IMG_LoadTexture(renderer,"../potion_4.png");
+    SDL_Rect potion_texture_rect = {.x=200, .y=200, .w=40, .h=50};
 
     SDL_bool shallExit = SDL_FALSE;
     while (shallExit == SDL_FALSE) {
         frame=(frame+1)%30;
+        for(int i=0;i<10;i++){
+            for(int j=0;j<10;j++){
+                if(color_potions[i][j]>0)color_potions[i][j]--;
+            }
+        }
+
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
         SDL_RenderClear(renderer);
 
@@ -394,14 +470,17 @@ void main_game_map(){
 
         if(frame==0){
             for(int i=0;i<cnt_regions;i++){
-                if(regions[i].color!=4 && regions[i].pawn_cnt<max_pawns)(regions[i].pawn_cnt) += regions[i].growth_rate;
+                if(regions[i].color!=4 ){
+                    if(color_potions[regions[i].color][3]!=0 || regions[i].pawn_cnt<max_pawns)(regions[i].pawn_cnt) += regions[i].growth_rate;
+                    if(color_potions[regions[i].color][4]!=0 && regions[i].pawn_cnt<max_pawns)(regions[i].pawn_cnt) += regions[i].growth_rate;
+                }
                 if(regions[i].color==4 && regions[i].pawn_cnt<initial_pawn_cnt)(regions[i].pawn_cnt) += regions[i].growth_rate;
             }
         }
 
-        cnt_moving_pawns=move_pawns_game_map(map,moving_pawns,regions,cnt_moving_pawns);
+        cnt_moving_pawns=move_pawns_game_map(map,moving_pawns,regions,cnt_moving_pawns,color_potions);
 
-
+        cnt_potions=process_potions_game_map(regions,cnt_regions,moving_pawns,cnt_moving_pawns,potions,cnt_potions,color_potions,potion_texture_rect);
 
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
@@ -414,12 +493,12 @@ void main_game_map(){
                     break;
                 case SDL_MOUSEBUTTONUP:
                     selected_dest_region = get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
-                    if(selected_source_region==-1 || selected_dest_region==-1 || selected_source_region==selected_dest_region || regions[selected_source_region].color!=players_color){
+                    if(selected_source_region==-1 || selected_dest_region==-1 || selected_source_region==selected_dest_region || regions[selected_source_region].color==4){
                         selected_source_region=-1;
                         selected_dest_region=-1;
                     }
                     else{
-                        cnt_moving_pawns=deploy_game_map(regions,moving_pawns,cnt_moving_pawns,selected_source_region,selected_dest_region);
+                        cnt_moving_pawns=deploy_game_map(regions,moving_pawns,cnt_moving_pawns,selected_source_region,selected_dest_region,color_potions);
                     }
                     break;
             }

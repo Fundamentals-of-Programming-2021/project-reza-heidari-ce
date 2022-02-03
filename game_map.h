@@ -28,9 +28,10 @@ int place_check_game_map(region *regions,int region_index,int x,int y);
 void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int cnt_each,int cnt_neutral,int initial_pawn_cnt,region *regions);
 void change_region_color_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int color,int start_x,int start_y);
 void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int cnt_regions);
-int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,region *regions,int cnt_moving_pawns);
+int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,region *regions,int cnt_moving_pawns,int color_potions[10][10]);
 int get_region_id_game_map(region *regions,int cnt_regions,int x,int y);
-int deploy_game_map(region *regions,pawn *moving_pawns,int cnt_moving_pawns,int selected_source_region,int selected_dest_region);
-int is_reachable(region *regions,int cnt_regions,int x,int y);
-void random_potion_coordinate(region *regions,int cnt_regions,int *x,int *y);
+int deploy_game_map(region *regions,pawn *moving_pawns,int cnt_moving_pawns,int selected_source_region,int selected_dest_region,int color_potions[10][10]);
+int is_reachable_game_map(region *regions,int cnt_regions,int x,int y);
+void random_potion_coordinate_game_map(region *regions,int cnt_regions,potion *potions,int cnt_potions,int *x,int *y);
+int process_potions_game_map(region *regions,int cnt_regions,pawn *moving_pawns,int cnt_moving_pawns,potion *potions,int cnt_potions,int color_potions[10][10],SDL_Rect potion_texture_rect);
 #endif //PROJECT_GAME_MAP_H
