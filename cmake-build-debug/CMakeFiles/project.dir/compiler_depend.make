@@ -195,7 +195,8 @@ CMakeFiles/project.dir/game_map.c.o: ../game_map.c \
   /usr/include/x86_64-linux-gnu/bits/time.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
-  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h
+  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
+  ../main_menu.h
 
 CMakeFiles/project.dir/leaderboard.c.o: ../leaderboard.c \
   /usr/include/stdc-predef.h \
@@ -391,7 +392,8 @@ CMakeFiles/project.dir/leaderboard.c.o: ../leaderboard.c \
   /usr/include/x86_64-linux-gnu/bits/time.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
-  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h
+  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
+  ../main_menu.h
 
 CMakeFiles/project.dir/main.c.o: ../main.c \
   /usr/include/stdc-predef.h \
@@ -786,7 +788,10 @@ CMakeFiles/project.dir/main_menu.c.o: ../main_menu.c \
   /usr/include/x86_64-linux-gnu/bits/time.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
-  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h
+  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
+  ../game_map.h \
+  ../username_menu.h \
+  ../leaderboard.h
 
 CMakeFiles/project.dir/username_menu.c.o: ../username_menu.c \
   /usr/include/stdc-predef.h \
@@ -982,7 +987,8 @@ CMakeFiles/project.dir/username_menu.c.o: ../username_menu.c \
   /usr/include/x86_64-linux-gnu/bits/time.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
-  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h
+  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
+  ../main_menu.h
 
 
 ../main_menu.h:

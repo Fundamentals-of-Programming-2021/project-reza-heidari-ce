@@ -197,6 +197,7 @@ CMakeFiles/project.dir/game_map.c.o
  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h
+ /mnt/c/sharif/c how to program/project/main_menu.h
 
 CMakeFiles/project.dir/leaderboard.c.o
  /mnt/c/sharif/c how to program/project/leaderboard.c
@@ -394,6 +395,7 @@ CMakeFiles/project.dir/leaderboard.c.o
  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h
+ /mnt/c/sharif/c how to program/project/main_menu.h
 
 CMakeFiles/project.dir/main.c.o
  /mnt/c/sharif/c how to program/project/main.c
@@ -791,6 +793,9 @@ CMakeFiles/project.dir/main_menu.c.o
  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h
+ /mnt/c/sharif/c how to program/project/game_map.h
+ /mnt/c/sharif/c how to program/project/username_menu.h
+ /mnt/c/sharif/c how to program/project/leaderboard.h
 
 CMakeFiles/project.dir/username_menu.c.o
  /mnt/c/sharif/c how to program/project/username_menu.c
@@ -988,4 +993,5 @@ CMakeFiles/project.dir/username_menu.c.o
  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h
+ /mnt/c/sharif/c how to program/project/main_menu.h
 

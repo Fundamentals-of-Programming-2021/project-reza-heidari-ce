@@ -35,8 +35,9 @@ void kill() {
 }
 int main() {
     init();
-    char *user_name=main_username_menu();
-    if(user_name==NULL){
+    main_username_menu();
+  /*  char *user_name=main_username_menu();
+   if(user_name==NULL){
         kill();
         return 0;
     }
@@ -55,7 +56,9 @@ int main() {
     if(next_menu_id==3)main_leaderboard();
 
     free(user_name);
+    */
     kill();
+
     return 0;
 }
 

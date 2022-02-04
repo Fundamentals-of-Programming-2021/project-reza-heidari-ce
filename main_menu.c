@@ -3,6 +3,9 @@
 //
 
 #include "main_menu.h"
+#include "game_map.h"
+#include "username_menu.h"
+#include "leaderboard.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL_image.h>
@@ -51,7 +54,7 @@ int is_in_rectangle_main_menu(int x1,int y1,int x2,int y2,int x,int y){
     if(x<x2 && x>x1 && y<y2 && y>y1)return 1;
     return 0;
 }
-int main_main_menu() {
+void main_main_menu(char *user_name) {
 
     init_main_menu();
     background_texture = IMG_LoadTexture(renderer,"../main_menu_bg.png");
@@ -72,14 +75,14 @@ int main_main_menu() {
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, background_texture, NULL, &background_texture_rect);
 
-        roundedBoxRGBA(renderer,250,177,550,227,30,0x2b,0xde,0xc9,0xa9);
-        roundedBoxRGBA(renderer,250,242,550,292,30,0x2b,0xde,0xc9,0xa9);
-        roundedBoxRGBA(renderer,250,307,550,357,30,0x30,0xde,0xc9,0xa9);
-        roundedBoxRGBA(renderer,250,372,550,422,30,0x30,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,245,177,555,227,30,0x2b,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,245,242,555,292,30,0x2b,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,245,307,555,357,30,0x30,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,245,372,555,422,30,0x30,0xde,0xc9,0xa9);
         show_text_main_menu("new game",color_title,font2,320,180);
         show_text_main_menu("continue",color_title,font2,320,245);
         show_text_main_menu("leaderboard",color_title,font2,290,310);
-        show_text_main_menu("Credits",color_title,font2,330,375);
+        show_text_main_menu("Change user name",color_title,font2,245,375);
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
             switch (sdlEvent.type) {
@@ -87,19 +90,19 @@ int main_main_menu() {
                     shallExit = SDL_TRUE;
                     break;
                 case SDL_MOUSEBUTTONUP:
-                    if(is_in_rectangle_main_menu(250,177,550,227,sdlEvent.button.x,sdlEvent.button.y)){
+                    if(is_in_rectangle_main_menu(245,177,555,227,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=1;
                         shallExit = SDL_TRUE;
                     }
-                    else if(is_in_rectangle_main_menu(250,242,550,292,sdlEvent.button.x,sdlEvent.button.y)){
+                    else if(is_in_rectangle_main_menu(245,242,555,292,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=2;
                         shallExit = SDL_TRUE;
                     }
-                    else if(is_in_rectangle_main_menu(250,307,550,357,sdlEvent.button.x,sdlEvent.button.y)){
+                    else if(is_in_rectangle_main_menu(245,307,555,357,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=3;
                         shallExit = SDL_TRUE;
                     }
-                    else if(is_in_rectangle_main_menu(250,372,550,422,sdlEvent.button.x,sdlEvent.button.y)){
+                    else if(is_in_rectangle_main_menu(245,372,555,422,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=4;
                         shallExit = SDL_TRUE;
                     }
@@ -113,7 +116,13 @@ int main_main_menu() {
     TTF_CloseFont( font2 );
     kill_main_menu();
 
-    return next_menu_id;
+    if(next_menu_id==-1){
+        free(user_name);
+        return;
+    }
+    if(next_menu_id==1)main_game_map(user_name);
+    if(next_menu_id==3)main_leaderboard(user_name);
+    if(next_menu_id==4)main_username_menu();
 }
 
 

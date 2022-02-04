@@ -3,6 +3,7 @@
 //
 
 #include "game_map.h"
+#include "main_menu.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL_image.h>
@@ -14,6 +15,8 @@
 #include <string.h>
 
 
+enum{SCREEN_WIDTH = 600};
+enum{SCREEN_HEIGHT = 400};
 static const int FPS = 60;
 
 static SDL_Window* window;
@@ -45,7 +48,7 @@ struct potion{
 void init_game_map() {
     window = SDL_CreateWindow("State.io", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               SCREEN_WIDTH,
-                              SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
+                              SCREEN_HEIGHT+75, SDL_WINDOW_OPENGL);
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 }
@@ -180,7 +183,7 @@ void change_region_color_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int color
     }
 }
 
-void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int cnt_regions){
+void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int cnt_regions,TTF_Font* font){
     for(int i=0;i<SCREEN_HEIGHT;i++){
         for(int j=0;j<SCREEN_WIDTH;j++){
             //red
@@ -199,11 +202,14 @@ void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int 
             if(map[i][j]==-1)pixelRGBA(renderer,j,i,0x00,0x00,0x00,0xff);
         }
     }
+    SDL_Color color_button = { 0x00, 0x00, 0x00 };
     for(int i=0;i<cnt_regions;i++){
         /* reminder: add code for artillery color and image */
         char temp_str[5];
         sprintf(temp_str,"%d",regions[i].pawn_cnt);
-        stringRGBA(renderer,regions[i].center_x,regions[i].center_y,temp_str,0x00,0x00,0x00,0xff);
+       // printf("%d %s\n",regions[i].pawn_cnt,temp_str);
+        //stringRGBA(renderer,regions[i].center_x,regions[i].center_y,temp_str,0x00,0x00,0x00,0xff);
+        show_text_game_map( temp_str,color_button,font,regions[i].center_x,regions[i].center_y);
     }
 }
 int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,region *regions,int cnt_moving_pawns,int color_potions[10][10]){
@@ -299,7 +305,7 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
     for(int i=0;i<cnt_moving_pawns;i++){
         if(moving_pawns[i].visible_after>0)continue;
         if(moving_pawns[i].color==1)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,circle_radius,0xff,0x00,0x00,0xff);
-        if(moving_pawns[i].color==2)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,circle_radius,0x00,0xff,0x00,0xff);
+        if(moving_pawns[i].color==2)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,circle_radius,0x00,0x6b,0x00,0xff);
         if(moving_pawns[i].color==3)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,circle_radius,0x00,0x00,0xff,0xff);
         if(moving_pawns[i].color==5)filledCircleRGBA(renderer,moving_pawns[i].current_x,moving_pawns[i].current_y,circle_radius,0x88,0xff,0x00,0xff);
 
@@ -431,15 +437,47 @@ int process_potions_game_map(region *regions,int cnt_regions,pawn *moving_pawns,
     }
     return cnt_potions;
 }
-int main_game_map(){
+int is_in_rectangle_game_map(int x1,int y1,int x2,int y2,int x,int y){
+    if(x<x2 && x>x1 && y<y2 && y>y1)return 1;
+    return 0;
+}
+void show_text_game_map(char *str_text,SDL_Color color,TTF_Font* font,int x,int y){
+    SDL_Surface* text = TTF_RenderText_Solid( font, str_text, color );
+    SDL_Texture* text_texture = SDL_CreateTextureFromSurface( renderer, text );
+    SDL_Rect dest = { x,y, text->w, text->h };
+    SDL_RenderCopy( renderer, text_texture,NULL, &dest );
+    SDL_FreeSurface(text);
+    SDL_DestroyTexture(text_texture);
+}
+int opponents_game_map(region *regions,int cnt_regions,pawn *moving_pawns,int cnt_moving_pawns,int players_color,int color_potions[10][10]){
+    for(int i=0;i<cnt_regions;i++){
+        if(regions[i].color==4 || regions[i].color==players_color)continue;
+        int id=-1;
+        int max_pawn=-100;
+        for(int j=0;j<cnt_regions;j++){
+            if(j==i || regions[i].color==regions[j].color)continue;
+            if(regions[i].pawn_cnt-regions[j].pawn_cnt-5>max_pawn){
+                id=j;
+                max_pawn=regions[i].pawn_cnt-regions[j].pawn_cnt;
+            }
+        }
+        if(max_pawn>5){
+            cnt_moving_pawns=deploy_game_map(regions,moving_pawns,cnt_moving_pawns,i,id,color_potions);
+            break;
+        }
+    }
+    return cnt_moving_pawns;
+}
+void main_game_map(char *user_name){
     init_game_map();
     srand(time(NULL));
     int map[SCREEN_HEIGHT][SCREEN_WIDTH]={0};
     region regions[20];
-
+    TTF_Font* font1 = TTF_OpenFont("../Lato-Black.ttf", 24);
+    TTF_Font* font2 = TTF_OpenFont("../Lato-Black.ttf", 10);
     //
     int cnt_colors=4;
-    int cnt_each=1;
+    int cnt_each=2;
     int cnt_neutral=4;
     int cnt_regions=cnt_colors*cnt_each+cnt_neutral;
     int initial_pawn_cnt=10;
@@ -447,8 +485,10 @@ int main_game_map(){
     int players_color=1;
     //
 
+    SDL_Color color_button = { 0xB2, 0x10, 0x10 };
+
     create_random_map_game_map(map,cnt_colors+1,cnt_each,cnt_neutral,initial_pawn_cnt,regions);
-    pawn moving_pawns[3000];
+    pawn moving_pawns[10000];
     int cnt_moving_pawns=0;
     int frame=0;
     int selected_source_region=-1,selected_dest_region=-1;
@@ -476,7 +516,7 @@ int main_game_map(){
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
         SDL_RenderClear(renderer);
 
-        draw_map_game_map(map,regions,cnt_regions);
+        draw_map_game_map(map,regions,cnt_regions,font2);
 
         if(frame==0){
             for(int i=0;i<cnt_regions;i++){
@@ -493,13 +533,18 @@ int main_game_map(){
         cnt_potions=process_potions_game_map(regions,cnt_regions,moving_pawns,cnt_moving_pawns,potions,cnt_potions,color_potions,potion_texture_rect);
 
         int finished=1;
-        for(int i=1;i<cnt_regions;i++){
-            if(regions[i].color!=regions[i-1].color)finished=0;
+        for(int i=0;i<cnt_regions;i++){
+            for(int j=0;j<i;j++)if(regions[i].color!=regions[j].color && regions[i].color!=4 && regions[j].color!=4)finished=0;
         }
         if(finished){
-            winner=regions[0].color;
+            int index=0;
+            while(regions[index].color==4)index++;
+            winner=regions[index].color;
             shallExit=true;
         }
+
+        roundedBoxRGBA(renderer,50,410,150,460,10,0x2b,0xde,0xc9,0xa9);
+        show_text_game_map("back",color_button,font1,75,420);
 
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
@@ -508,11 +553,15 @@ int main_game_map(){
                     shallExit = SDL_TRUE;
                     break;
                 case SDL_MOUSEBUTTONDOWN:
+                    if(is_in_rectangle_game_map(50,410,150,460,sdlEvent.button.x,sdlEvent.button.y)){
+                        winner=-2;
+                        shallExit = SDL_TRUE;
+                    }
                     selected_source_region=get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
                     break;
                 case SDL_MOUSEBUTTONUP:
                     selected_dest_region = get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
-                    if(selected_source_region==-1 || selected_dest_region==-1 || selected_source_region==selected_dest_region || regions[selected_source_region].color==4){
+                    if(selected_source_region==-1 || selected_dest_region==-1 || selected_source_region==selected_dest_region || regions[selected_source_region].color!=players_color){
                         selected_source_region=-1;
                         selected_dest_region=-1;
                     }
@@ -522,15 +571,25 @@ int main_game_map(){
                     break;
             }
         }
+        if(frame==0 && rand()%10==0)cnt_moving_pawns= opponents_game_map(regions,cnt_regions,moving_pawns,cnt_moving_pawns,players_color,color_potions);
         SDL_RenderPresent(renderer);
         SDL_Delay(1000 / FPS);
     }
 
-
+    TTF_CloseFont( font1 );
     SDL_DestroyTexture(potion1_texture);
     SDL_DestroyTexture(potion2_texture);
     SDL_DestroyTexture(potion3_texture);
     SDL_DestroyTexture(potion4_texture);
     kill_game_map();
-    return winner;
+    if(winner==-1){
+        free(user_name);
+        return;
+    }
+    else if(winner==-2){
+        main_main_menu(user_name);
+        return;
+    }
+
+    //return winner;
 }

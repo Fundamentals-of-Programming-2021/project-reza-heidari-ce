@@ -18,6 +18,7 @@
 void init_leaderboard();
 void kill_leaderboard();
 void show_text_leaderboard(char *str_text,SDL_Color color,TTF_Font* font,int x,int y);
-void main_leaderboard();
+int is_in_rectangle_leaderboard(int x1,int y1,int x2,int y2,int x,int y);
+void main_leaderboard(char *user_name);
 
 #endif //PROJECT_LEADERBOARD_H

@@ -3,6 +3,7 @@
 //
 
 #include "leaderboard.h"
+#include "main_menu.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL_image.h>
@@ -47,7 +48,11 @@ void show_text_leaderboard(char *str_text,SDL_Color color,TTF_Font* font,int x,i
     SDL_FreeSurface(text);
     SDL_DestroyTexture(text_texture);
 }
-void main_leaderboard() {
+int is_in_rectangle_leaderboard(int x1,int y1,int x2,int y2,int x,int y){
+    if(x<x2 && x>x1 && y<y2 && y>y1)return 1;
+    return 0;
+}
+void main_leaderboard(char *user_name) {
 
     init_leaderboard();
     background_texture = IMG_LoadTexture(renderer,"../main_menu_bg.png");
@@ -58,11 +63,15 @@ void main_leaderboard() {
 
     SDL_Color credits_color = { 0x2E, 0xCA, 0x1D };
     SDL_Color user_name_color = { 0, 0, 0 };
-    SDL_Color color_title = { 0xB2, 0x10, 0x10 };
+    SDL_Color color_button = { 0xB2, 0x10, 0x10 };
 
-    FILE *fptr= fopen("../test.txt","w");
-    fprintf(fptr,"hi");
-    fclose(fptr);
+
+
+
+    //FILE *fptr= fopen("../leaderboard.txt","w");
+    //fprintf(fptr,"hi");
+    //fclose(fptr);
+    int next_menu_id=-1;
 
     SDL_bool shallExit = SDL_FALSE;
     while (shallExit == SDL_FALSE) {
@@ -70,11 +79,21 @@ void main_leaderboard() {
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, background_texture, NULL, &background_texture_rect);
 
+        roundedBoxRGBA(renderer,50,500,150,550,10,0x2b,0xde,0xc9,0xa9);
+        show_text_leaderboard("back",color_button,font1,75,510);
+
+
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
             switch (sdlEvent.type) {
                 case SDL_QUIT:
                     shallExit = SDL_TRUE;
+                    break;
+                case SDL_MOUSEBUTTONUP:
+                    if(is_in_rectangle_leaderboard(50,500,150,550,sdlEvent.button.x,sdlEvent.button.y)){
+                        next_menu_id=1;
+                        shallExit = SDL_TRUE;
+                    }
                     break;
             }
         }
@@ -84,8 +103,11 @@ void main_leaderboard() {
     TTF_CloseFont( font1 );
     TTF_CloseFont( font2 );
     kill_leaderboard();
-
-
+    if(next_menu_id==1)main_main_menu(user_name);
+    if(next_menu_id==-1){
+        free(user_name);
+        return;
+    }
 }
 
 
