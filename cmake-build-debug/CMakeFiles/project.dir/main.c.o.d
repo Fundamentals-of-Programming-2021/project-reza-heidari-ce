@@ -160,4 +160,5 @@ CMakeFiles/project.dir/main.c.o: \
  /mnt/c/sharif/c\ how\ to\ program/project/username_menu.h \
  /mnt/c/sharif/c\ how\ to\ program/project/game_map.h \
  /mnt/c/sharif/c\ how\ to\ program/project/main_menu.h \
- /mnt/c/sharif/c\ how\ to\ program/project/leaderboard.h
+ /mnt/c/sharif/c\ how\ to\ program/project/leaderboard.h \
+ /mnt/c/sharif/c\ how\ to\ program/project/maps_menu.h
