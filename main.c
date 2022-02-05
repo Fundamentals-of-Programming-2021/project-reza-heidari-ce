@@ -13,6 +13,7 @@
 #include "main_menu.h"
 #include "leaderboard.h"
 #include "maps_menu.h"
+#include "picking_color.h"
 int init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -36,9 +37,10 @@ void kill() {
 }
 void run_username_menu();
 void run_main_menu(char *user_name);
-void run_game_map(char *user_name,int map_number);
+void run_game_map(char *user_name,int map_number,int player_color);
 void run_leaderboard(char *user_name);
 void run_maps_menu(char *user_name);
+void run_picking_color(char *user_name,int map_number);
 void run_username_menu(){
     char *user_name=main_username_menu();
     if(user_name==NULL)return;
@@ -57,14 +59,25 @@ void run_main_menu(char *user_name){
 }
 void run_maps_menu(char *user_name){
     int next_menu_id=main_maps_menu();
-    if(next_menu_id>0)run_game_map(user_name,next_menu_id);
+    if(next_menu_id>0)run_picking_color(user_name,next_menu_id);
     if(next_menu_id==-1)return;
     if(next_menu_id==-2)run_main_menu(user_name);
 }
-void run_game_map(char *user_name,int map_number){
-    int winner=main_game_map(map_number);
-    if(winner==-1)return;
-    if(winner==-2)run_maps_menu(user_name);
+void run_picking_color(char *user_name,int map_number){
+    int next_menu_id=main_picking_color();
+    if(next_menu_id==-1)return;
+    else if(next_menu_id==-2)run_maps_menu(user_name);
+    else{
+        run_game_map(user_name,map_number,next_menu_id);
+    }
+}
+void run_game_map(char *user_name,int map_number,int player_color){
+    int points=main_game_map(map_number,player_color);
+    if(points==-1)return;
+    else if(points==-2)run_picking_color(user_name,map_number);
+    else{
+        printf("%d",points);
+    }
 }
 void run_leaderboard(char *user_name){
     int next_menu_id=main_leaderboard();

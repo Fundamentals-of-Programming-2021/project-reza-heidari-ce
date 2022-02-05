@@ -467,7 +467,7 @@ int opponents_game_map(region *regions,int cnt_regions,pawn *moving_pawns,int cn
     }
     return cnt_moving_pawns;
 }
-int main_game_map(int map_number){
+int main_game_map(int map_number,int players_color){
     init_game_map();
     if(map_number==4)srand(time(NULL));
     else srand(1000*map_number);
@@ -482,7 +482,6 @@ int main_game_map(int map_number){
     int cnt_regions=cnt_colors*cnt_each+cnt_neutral;
     int initial_pawn_cnt=10;
     int max_pawns=50;
-    int players_color=1;
     //
 
     SDL_Color color_button = { 0xB2, 0x10, 0x10 };
@@ -502,7 +501,7 @@ int main_game_map(int map_number){
     potion4_texture= IMG_LoadTexture(renderer,"../potion_4.png");
     SDL_Rect potion_texture_rect = {.x=200, .y=200, .w=40, .h=50};
 
-    int winner=-1;
+    int points=-1;
 
     SDL_bool shallExit = SDL_FALSE;
     while (shallExit == SDL_FALSE) {
@@ -534,12 +533,36 @@ int main_game_map(int map_number){
 
         int finished=1;
         for(int i=0;i<cnt_regions;i++){
-            for(int j=0;j<i;j++)if(regions[i].color!=regions[j].color && regions[i].color!=4 && regions[j].color!=4)finished=0;
+            //for(int j=0;j<i;j++)if(regions[i].color!=regions[j].color && regions[i].color!=4 && regions[j].color!=4)finished=0;
+            if(regions[i].color==players_color)finished=0;
         }
         if(finished){
             int index=0;
             while(regions[index].color==4)index++;
-            winner=regions[index].color;
+            if(regions[index].color==players_color)points=10;
+            else{
+                int cnt_different_colors=0;
+                int flag1=0,flag2=0,flag3=0,flag5=0;
+                for(int i=0;i<cnt_regions;i++){
+                    if(regions[i].color==1 && flag1==0){
+                        flag1=1;
+                        cnt_different_colors++;
+                    }
+                    if(regions[i].color==2 && flag2==0){
+                        flag2=1;
+                        cnt_different_colors++;
+                    }
+                    if(regions[i].color==3 && flag3==0){
+                        flag3=1;
+                        cnt_different_colors++;
+                    }
+                    if(regions[i].color==5 && flag5==0){
+                        flag5=1;
+                        cnt_different_colors++;
+                    }
+                }
+                points=(10*(4-cnt_different_colors))/cnt_colors;
+            }
             shallExit=true;
         }
 
@@ -557,7 +580,7 @@ int main_game_map(int map_number){
                     break;
                 case SDL_MOUSEBUTTONUP:
                     if(is_in_rectangle_game_map(50,410,150,460,sdlEvent.button.x,sdlEvent.button.y)){
-                        winner=-2;
+                        points=-2;
                         shallExit = SDL_TRUE;
                     }
                     selected_dest_region = get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
@@ -582,7 +605,7 @@ int main_game_map(int map_number){
     SDL_DestroyTexture(potion3_texture);
     SDL_DestroyTexture(potion4_texture);
     kill_game_map();
-    return winner;
+    return points;
 
     //return winner;
 }

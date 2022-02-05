@@ -249,6 +249,30 @@ maps_menu.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/maps_menu.c.s
 .PHONY : maps_menu.c.s
 
+picking_color.o: picking_color.c.o
+.PHONY : picking_color.o
+
+# target to build an object file
+picking_color.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/picking_color.c.o
+.PHONY : picking_color.c.o
+
+picking_color.i: picking_color.c.i
+.PHONY : picking_color.i
+
+# target to preprocess a source file
+picking_color.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/picking_color.c.i
+.PHONY : picking_color.c.i
+
+picking_color.s: picking_color.c.s
+.PHONY : picking_color.s
+
+# target to generate assembly for a file
+picking_color.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/picking_color.c.s
+.PHONY : picking_color.c.s
+
 username_menu.o: username_menu.c.o
 .PHONY : username_menu.o
 
@@ -297,6 +321,9 @@ help:
 	@echo "... maps_menu.o"
 	@echo "... maps_menu.i"
 	@echo "... maps_menu.s"
+	@echo "... picking_color.o"
+	@echo "... picking_color.i"
+	@echo "... picking_color.s"
 	@echo "... username_menu.o"
 	@echo "... username_menu.i"
 	@echo "... username_menu.s"
