@@ -19,6 +19,6 @@ void init_main_menu();
 void kill_main_menu();
 void show_text_main_menu(char *str_text,SDL_Color color,TTF_Font* font,int x,int y);
 int is_in_rectangle_main_menu(int x1,int y1,int x2,int y2,int x,int y);
-void main_main_menu(char *user_name);
+int main_main_menu();
 
 #endif //PROJECT_MAIN_MENU_H

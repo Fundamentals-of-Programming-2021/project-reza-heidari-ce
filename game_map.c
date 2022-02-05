@@ -3,7 +3,6 @@
 //
 
 #include "game_map.h"
-#include "main_menu.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL_image.h>
@@ -468,9 +467,10 @@ int opponents_game_map(region *regions,int cnt_regions,pawn *moving_pawns,int cn
     }
     return cnt_moving_pawns;
 }
-void main_game_map(char *user_name){
+int main_game_map(int map_number){
     init_game_map();
-    srand(time(NULL));
+    if(map_number==4)srand(time(NULL));
+    else srand(1000*map_number);
     int map[SCREEN_HEIGHT][SCREEN_WIDTH]={0};
     region regions[20];
     TTF_Font* font1 = TTF_OpenFont("../Lato-Black.ttf", 24);
@@ -553,13 +553,13 @@ void main_game_map(char *user_name){
                     shallExit = SDL_TRUE;
                     break;
                 case SDL_MOUSEBUTTONDOWN:
+                    selected_source_region=get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
+                    break;
+                case SDL_MOUSEBUTTONUP:
                     if(is_in_rectangle_game_map(50,410,150,460,sdlEvent.button.x,sdlEvent.button.y)){
                         winner=-2;
                         shallExit = SDL_TRUE;
                     }
-                    selected_source_region=get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
-                    break;
-                case SDL_MOUSEBUTTONUP:
                     selected_dest_region = get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
                     if(selected_source_region==-1 || selected_dest_region==-1 || selected_source_region==selected_dest_region || regions[selected_source_region].color!=players_color){
                         selected_source_region=-1;
@@ -571,7 +571,7 @@ void main_game_map(char *user_name){
                     break;
             }
         }
-        if(frame==0 && rand()%10==0)cnt_moving_pawns= opponents_game_map(regions,cnt_regions,moving_pawns,cnt_moving_pawns,players_color,color_potions);
+        if(frame==0 && rand()%2==0)cnt_moving_pawns= opponents_game_map(regions,cnt_regions,moving_pawns,cnt_moving_pawns,players_color,color_potions);
         SDL_RenderPresent(renderer);
         SDL_Delay(1000 / FPS);
     }
@@ -582,14 +582,7 @@ void main_game_map(char *user_name){
     SDL_DestroyTexture(potion3_texture);
     SDL_DestroyTexture(potion4_texture);
     kill_game_map();
-    if(winner==-1){
-        free(user_name);
-        return;
-    }
-    else if(winner==-2){
-        main_main_menu(user_name);
-        return;
-    }
+    return winner;
 
     //return winner;
 }

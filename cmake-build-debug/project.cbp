@@ -97,6 +97,12 @@
 		<Unit filename="/mnt/c/sharif/c how to program/project/main_menu.h">
 			<Option target="project"/>
 		</Unit>
+		<Unit filename="/mnt/c/sharif/c how to program/project/maps_menu.c">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/mnt/c/sharif/c how to program/project/maps_menu.h">
+			<Option target="project"/>
+		</Unit>
 		<Unit filename="/mnt/c/sharif/c how to program/project/username_menu.c">
 			<Option target="project"/>
 		</Unit>

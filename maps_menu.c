@@ -1,8 +1,8 @@
 //
-// Created by r4hei on 2/2/2022.
+// Created by r4hei on 2/5/2022.
 //
 
-#include "leaderboard.h"
+#include "maps_menu.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL_image.h>
@@ -22,14 +22,14 @@ static SDL_Renderer* renderer;
 static SDL_Texture *background_texture;
 
 
-void init_leaderboard() {
+void init_maps_menu() {
     window = SDL_CreateWindow("State.io", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               SCREEN_WIDTH,
                               SCREEN_HEIGHT, SDL_WINDOW_OPENGL);
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 }
-void kill_leaderboard() {
+void kill_maps_menu() {
 
     SDL_DestroyTexture( background_texture );
     background_texture = NULL;
@@ -39,7 +39,7 @@ void kill_leaderboard() {
     window = NULL;
     renderer = NULL;
 }
-void show_text_leaderboard(char *str_text,SDL_Color color,TTF_Font* font,int x,int y){
+void show_text_maps_menu(char *str_text,SDL_Color color,TTF_Font* font,int x,int y){
     SDL_Surface* text = TTF_RenderText_Solid( font, str_text, color );
     SDL_Texture* text_texture = SDL_CreateTextureFromSurface( renderer, text );
     SDL_Rect dest = { x,y, text->w, text->h };
@@ -47,13 +47,13 @@ void show_text_leaderboard(char *str_text,SDL_Color color,TTF_Font* font,int x,i
     SDL_FreeSurface(text);
     SDL_DestroyTexture(text_texture);
 }
-int is_in_rectangle_leaderboard(int x1,int y1,int x2,int y2,int x,int y){
+int is_in_rectangle_maps_menu(int x1,int y1,int x2,int y2,int x,int y){
     if(x<x2 && x>x1 && y<y2 && y>y1)return 1;
     return 0;
 }
-int main_leaderboard() {
+int main_maps_menu() {
 
-    init_leaderboard();
+    init_maps_menu();
     background_texture = IMG_LoadTexture(renderer,"../main_menu_bg.png");
     TTF_Font* font1 = TTF_OpenFont("../Lato-Black.ttf", 24);
     TTF_Font* font2 = TTF_OpenFont("../metal-lord.ttf", 36);
@@ -62,14 +62,8 @@ int main_leaderboard() {
 
     SDL_Color credits_color = { 0x2E, 0xCA, 0x1D };
     SDL_Color user_name_color = { 0, 0, 0 };
-    SDL_Color color_button = { 0xB2, 0x10, 0x10 };
+    SDL_Color color_title = { 0xB2, 0x10, 0x10 };
 
-
-
-
-    //FILE *fptr= fopen("../leaderboard.txt","w");
-    //fprintf(fptr,"hi");
-    //fclose(fptr);
     int next_menu_id=-1;
 
     SDL_bool shallExit = SDL_FALSE;
@@ -78,9 +72,17 @@ int main_leaderboard() {
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, background_texture, NULL, &background_texture_rect);
 
-        roundedBoxRGBA(renderer,50,500,150,550,10,0x2b,0xde,0xc9,0xa9);
-        show_text_leaderboard("back",color_button,font1,75,510);
+        roundedBoxRGBA(renderer,245,177,555,227,30,0x2b,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,245,242,555,292,30,0x2b,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,245,307,555,357,30,0x30,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,245,372,555,422,30,0x30,0xde,0xc9,0xa9);
+        show_text_maps_menu("map 1",color_title,font2,350,180);
+        show_text_maps_menu("map 2",color_title,font2,350,245);
+        show_text_maps_menu("map 3",color_title,font2,350,310);
+        show_text_maps_menu("random map",color_title,font2,292,375);
 
+        roundedBoxRGBA(renderer,50,500,150,550,10,0x2b,0xde,0xc9,0xa9);
+        show_text_maps_menu("back",color_title,font1,75,510);
 
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
@@ -89,8 +91,24 @@ int main_leaderboard() {
                     shallExit = SDL_TRUE;
                     break;
                 case SDL_MOUSEBUTTONUP:
-                    if(is_in_rectangle_leaderboard(50,500,150,550,sdlEvent.button.x,sdlEvent.button.y)){
+                    if(is_in_rectangle_maps_menu(245,177,555,227,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=1;
+                        shallExit = SDL_TRUE;
+                    }
+                    else if(is_in_rectangle_maps_menu(245,242,555,292,sdlEvent.button.x,sdlEvent.button.y)){
+                        next_menu_id=2;
+                        shallExit = SDL_TRUE;
+                    }
+                    else if(is_in_rectangle_maps_menu(245,307,555,357,sdlEvent.button.x,sdlEvent.button.y)){
+                        next_menu_id=3;
+                        shallExit = SDL_TRUE;
+                    }
+                    else if(is_in_rectangle_maps_menu(245,372,555,422,sdlEvent.button.x,sdlEvent.button.y)){
+                        next_menu_id=4;
+                        shallExit = SDL_TRUE;
+                    }
+                    if(is_in_rectangle_maps_menu(50,500,150,550,sdlEvent.button.x,sdlEvent.button.y)){
+                        next_menu_id=-2;
                         shallExit = SDL_TRUE;
                     }
                     break;
@@ -101,7 +119,8 @@ int main_leaderboard() {
     }
     TTF_CloseFont( font1 );
     TTF_CloseFont( font2 );
-    kill_leaderboard();
+    kill_maps_menu();
+
     return next_menu_id;
 }
 

@@ -157,7 +157,4 @@ CMakeFiles/project.dir/main_menu.c.o: \
  /usr/include/time.h /usr/include/x86_64-linux-gnu/bits/time.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
- /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
- /mnt/c/sharif/c\ how\ to\ program/project/game_map.h \
- /mnt/c/sharif/c\ how\ to\ program/project/username_menu.h \
- /mnt/c/sharif/c\ how\ to\ program/project/leaderboard.h
+ /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h

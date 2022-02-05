@@ -3,7 +3,6 @@
 //
 
 #include "username_menu.h"
-#include "main_menu.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL_image.h>
@@ -53,7 +52,7 @@ void show_text_username_menu(char *str_text,SDL_Color color,TTF_Font* font,int x
     SDL_FreeSurface(text);
     SDL_DestroyTexture(text_texture);
 }
-void main_username_menu() {
+char *main_username_menu() {
 
     init_username_menu();
     background_texture = IMG_LoadTexture(renderer,"../username_menu_bg.png");
@@ -113,8 +112,8 @@ void main_username_menu() {
     strcpy(user_name,temp_str);
     if(closed){
         free(user_name);
-        return;
+        return NULL;
     }
-    main_main_menu(user_name);
+    return user_name;
 }
 

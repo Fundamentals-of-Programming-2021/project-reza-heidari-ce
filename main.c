@@ -12,6 +12,7 @@
 #include "game_map.h"
 #include "main_menu.h"
 #include "leaderboard.h"
+#include "maps_menu.h"
 int init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -33,30 +34,46 @@ void kill() {
     IMG_Quit();
     SDL_Quit();
 }
+void run_username_menu();
+void run_main_menu(char *user_name);
+void run_game_map(char *user_name,int map_number);
+void run_leaderboard(char *user_name);
+void run_maps_menu(char *user_name);
+void run_username_menu(){
+    char *user_name=main_username_menu();
+    if(user_name==NULL)return;
+    run_main_menu(user_name);
+}
+void run_main_menu(char *user_name){
+    int next_menu_id=main_main_menu();
+    if(next_menu_id==-1)return;
+    if(next_menu_id==1)run_maps_menu(user_name);
+    if(next_menu_id==2){
+        int temp=1;
+        //continue//
+    }
+    if(next_menu_id==3)run_leaderboard(user_name);
+    if(next_menu_id==4)run_username_menu();
+}
+void run_maps_menu(char *user_name){
+    int next_menu_id=main_maps_menu();
+    if(next_menu_id>0)run_game_map(user_name,next_menu_id);
+    if(next_menu_id==-1)return;
+    if(next_menu_id==-2)run_main_menu(user_name);
+}
+void run_game_map(char *user_name,int map_number){
+    int winner=main_game_map(map_number);
+    if(winner==-1)return;
+    if(winner==-2)run_maps_menu(user_name);
+}
+void run_leaderboard(char *user_name){
+    int next_menu_id=main_leaderboard();
+    if(next_menu_id==-1)return;
+    if(next_menu_id==1)run_main_menu(user_name);
+}
 int main() {
     init();
-    main_username_menu();
-  /*  char *user_name=main_username_menu();
-   if(user_name==NULL){
-        kill();
-        return 0;
-    }
-    printf("%s\n",user_name);
-
-    int next_menu_id=main_main_menu();
-    if(next_menu_id==-1){
-        kill();
-        return 0;
-    }
-    if(next_menu_id==1){
-        int winner;
-        winner=main_game_map();
-        printf("%d\n",winner);
-    }
-    if(next_menu_id==3)main_leaderboard();
-
-    free(user_name);
-    */
+    run_username_menu();
     kill();
 
     return 0;

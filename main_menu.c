@@ -3,9 +3,6 @@
 //
 
 #include "main_menu.h"
-#include "game_map.h"
-#include "username_menu.h"
-#include "leaderboard.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL_image.h>
@@ -54,7 +51,7 @@ int is_in_rectangle_main_menu(int x1,int y1,int x2,int y2,int x,int y){
     if(x<x2 && x>x1 && y<y2 && y>y1)return 1;
     return 0;
 }
-void main_main_menu(char *user_name) {
+int main_main_menu() {
 
     init_main_menu();
     background_texture = IMG_LoadTexture(renderer,"../main_menu_bg.png");
@@ -116,13 +113,7 @@ void main_main_menu(char *user_name) {
     TTF_CloseFont( font2 );
     kill_main_menu();
 
-    if(next_menu_id==-1){
-        free(user_name);
-        return;
-    }
-    if(next_menu_id==1)main_game_map(user_name);
-    if(next_menu_id==3)main_leaderboard(user_name);
-    if(next_menu_id==4)main_username_menu();
+    return next_menu_id;
 }
 
 
