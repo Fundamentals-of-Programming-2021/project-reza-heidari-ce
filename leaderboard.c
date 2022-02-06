@@ -16,11 +16,14 @@
 static const int SCREEN_WIDTH = 800;
 static const int SCREEN_HEIGHT = 600;
 static const int FPS = 60;
-
 static SDL_Window* window;
 static SDL_Renderer* renderer;
 static SDL_Texture *background_texture;
 
+struct player{
+    int points;
+    char name[100];
+};
 
 void init_leaderboard() {
     window = SDL_CreateWindow("State.io", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -65,11 +68,33 @@ int main_leaderboard() {
     SDL_Color color_button = { 0xB2, 0x10, 0x10 };
 
 
+    FILE *fptr= fopen("../player-scores.txt","r");
+    int cnt_players;
+    fscanf(fptr," %d",&cnt_players);
+    player players[100];
+    for(int i=0;i<cnt_players;i++){
+        fscanf(fptr," %[^\n]s",players[i].name);
+        if(strlen(players[i].name)>0)players[i].name[strlen(players[i].name)-1]='\0';
+        fscanf(fptr," %d",&(players[i].points));
+    }
+    fclose(fptr);
 
 
-    //FILE *fptr= fopen("../leaderboard.txt","w");
-    //fprintf(fptr,"hi");
-    //fclose(fptr);
+    for(int i=0;i<cnt_players;i++){
+        for(int j=0;j<i;j++){
+            if(players[i].points>players[j].points){
+                player temp_player;
+                temp_player.points=players[i].points;
+                strcpy(temp_player.name,players[i].name);
+                players[i].points=players[j].points;
+                strcpy(players[i].name,players[j].name);
+                players[j].points=temp_player.points;
+                strcpy(players[j].name,temp_player.name);
+            }
+        }
+    }
+
+
     int next_menu_id=-1;
 
     SDL_bool shallExit = SDL_FALSE;
@@ -77,6 +102,15 @@ int main_leaderboard() {
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, background_texture, NULL, &background_texture_rect);
+
+        for(int i=0;i<9 && i<cnt_players;i++){
+            show_text_leaderboard(players[i].name,user_name_color,font1,50,50+50*i);
+            char temp_points[10];
+            sprintf(temp_points,"%d",players[i].points);
+            show_text_leaderboard(temp_points,user_name_color,font1,650,50+50*i);
+        }
+
+
 
         roundedBoxRGBA(renderer,50,500,150,550,10,0x2b,0xde,0xc9,0xa9);
         show_text_leaderboard("back",color_button,font1,75,510);

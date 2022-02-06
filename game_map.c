@@ -24,6 +24,7 @@ static SDL_Texture *potion1_texture;
 static SDL_Texture *potion2_texture;
 static SDL_Texture *potion3_texture;
 static SDL_Texture *potion4_texture;
+static SDL_Texture *barracks_red_texture,*barracks_green_texture,*barracks_blue_texture,*barracks_neutral_texture,*barracks_yellow_texture;
 
 struct pawn{
     int current_x,current_y;
@@ -202,8 +203,19 @@ void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int 
         }
     }
     SDL_Color color_button = { 0x00, 0x00, 0x00 };
+    SDL_Rect barracks_texture_rect = {.x=200, .y=200, .w=40, .h=50};
     for(int i=0;i<cnt_regions;i++){
-        /* reminder: add code for artillery color and image */
+        // reminder: add code for artillery color and image
+
+        barracks_texture_rect.x=regions[i].center_x-barracks_texture_rect.w/2+8;
+        barracks_texture_rect.y=regions[i].center_y-barracks_texture_rect.h/2;
+        if(regions[i].color==1)SDL_RenderCopy(renderer,barracks_red_texture,NULL,&barracks_texture_rect);
+        if(regions[i].color==2)SDL_RenderCopy(renderer,barracks_green_texture,NULL,&barracks_texture_rect);
+        if(regions[i].color==3)SDL_RenderCopy(renderer,barracks_blue_texture,NULL,&barracks_texture_rect);
+        if(regions[i].color==4)SDL_RenderCopy(renderer,barracks_neutral_texture,NULL,&barracks_texture_rect);
+        if(regions[i].color==5)SDL_RenderCopy(renderer,barracks_yellow_texture,NULL,&barracks_texture_rect);
+
+         //
         char temp_str[5];
         sprintf(temp_str,"%d",regions[i].pawn_cnt);
        // printf("%d %s\n",regions[i].pawn_cnt,temp_str);
@@ -314,7 +326,7 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
 int get_region_id_game_map(region *regions,int cnt_regions,int x,int y){
     for(int i=0;i<cnt_regions;i++){
         int dist=(regions[i].center_x-x)*(regions[i].center_x-x)+(regions[i].center_y-y)*(regions[i].center_y-y);
-        if(dist<400){
+        if(dist<1000){
             return i;
         }
     }
@@ -474,7 +486,7 @@ int main_game_map(int map_number,int players_color){
     int map[SCREEN_HEIGHT][SCREEN_WIDTH]={0};
     region regions[20];
     TTF_Font* font1 = TTF_OpenFont("../Lato-Black.ttf", 24);
-    TTF_Font* font2 = TTF_OpenFont("../Lato-Black.ttf", 10);
+    TTF_Font* font2 = TTF_OpenFont("../Lato-Black.ttf", 14);
     //
     int cnt_colors=4;
     int cnt_each=2;
@@ -499,6 +511,13 @@ int main_game_map(int map_number,int players_color){
     potion2_texture= IMG_LoadTexture(renderer,"../potion_2.png");
     potion3_texture= IMG_LoadTexture(renderer,"../potion_3.png");
     potion4_texture= IMG_LoadTexture(renderer,"../potion_4.png");
+    barracks_red_texture= IMG_LoadTexture(renderer,"../red_barracks.png");
+    barracks_green_texture= IMG_LoadTexture(renderer,"../green_barracks.png");
+    barracks_blue_texture= IMG_LoadTexture(renderer,"../blue_barracks.png");
+    barracks_neutral_texture= IMG_LoadTexture(renderer,"../neutral_barracks.png");
+    barracks_yellow_texture= IMG_LoadTexture(renderer,"../yellow_barracks.png");
+
+
     SDL_Rect potion_texture_rect = {.x=200, .y=200, .w=40, .h=50};
 
     int points=-1;
@@ -604,6 +623,11 @@ int main_game_map(int map_number,int players_color){
     SDL_DestroyTexture(potion2_texture);
     SDL_DestroyTexture(potion3_texture);
     SDL_DestroyTexture(potion4_texture);
+    SDL_DestroyTexture(barracks_red_texture);
+    SDL_DestroyTexture(barracks_blue_texture);
+    SDL_DestroyTexture(barracks_green_texture);
+    SDL_DestroyTexture(barracks_neutral_texture);
+    SDL_DestroyTexture(barracks_yellow_texture);
     kill_game_map();
     return points;
 

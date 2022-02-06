@@ -15,6 +15,8 @@
 #include <stdbool.h>
 #include <string.h>
 
+typedef struct player player;
+
 void init_leaderboard();
 void kill_leaderboard();
 void show_text_leaderboard(char *str_text,SDL_Color color,TTF_Font* font,int x,int y);
