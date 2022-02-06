@@ -115,6 +115,12 @@
 		<Unit filename="/mnt/c/sharif/c how to program/project/username_menu.h">
 			<Option target="project"/>
 		</Unit>
+		<Unit filename="/mnt/c/sharif/c how to program/project/win_loose_menu.c">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/mnt/c/sharif/c how to program/project/win_loose_menu.h">
+			<Option target="project"/>
+		</Unit>
 		<Unit filename="/mnt/c/sharif/c how to program/project/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

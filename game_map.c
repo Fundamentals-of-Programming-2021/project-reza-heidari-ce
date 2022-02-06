@@ -37,6 +37,7 @@ struct pawn{
 struct region{
     int center_x,center_y;
     int pawn_cnt;
+    int show_pawn_cnt;
     int growth_rate;
     int color;
 };
@@ -100,6 +101,7 @@ void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int
             regions[region_index].center_y=start_y;
             regions[region_index].color=i;
             regions[region_index].pawn_cnt=initial_pawn_cnt;
+            regions[region_index].show_pawn_cnt=initial_pawn_cnt;
             regions[region_index].growth_rate=1;
             region_index++;
 
@@ -217,7 +219,7 @@ void draw_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],region *regions,int 
 
          //
         char temp_str[5];
-        sprintf(temp_str,"%d",regions[i].pawn_cnt);
+        sprintf(temp_str,"%d",regions[i].show_pawn_cnt);
        // printf("%d %s\n",regions[i].pawn_cnt,temp_str);
         //stringRGBA(renderer,regions[i].center_x,regions[i].center_y,temp_str,0x00,0x00,0x00,0xff);
         show_text_game_map( temp_str,color_button,font,regions[i].center_x,regions[i].center_y);
@@ -248,7 +250,7 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
         }
         else {
             if(moving_pawns[i].visible_after==0){
-                if(regions[moving_pawns[i].region_source].pawn_cnt>0)(regions[moving_pawns[i].region_source].pawn_cnt)--;
+                if(regions[moving_pawns[i].region_source].show_pawn_cnt>0)(regions[moving_pawns[i].region_source].show_pawn_cnt)--;
                 moving_pawns[i].visible_after=-1;
             }
             int speed_x,speed_y;
@@ -274,13 +276,16 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
             if(abs(moving_pawns[i].current_x-moving_pawns[i].dest_x)<5 && abs(moving_pawns[i].current_y-moving_pawns[i].dest_y)<5){
                 if(regions[moving_pawns[i].region_dest].color==moving_pawns[i].color){
                     (regions[moving_pawns[i].region_dest].pawn_cnt)++;
+                    (regions[moving_pawns[i].region_dest].show_pawn_cnt)++;
                 }
                 else{
                     if(regions[moving_pawns[i].region_dest].pawn_cnt != 0){
                         (regions[moving_pawns[i].region_dest].pawn_cnt)--;
+                        (regions[moving_pawns[i].region_dest].show_pawn_cnt)--;
                     }
                     else{
                         regions[moving_pawns[i].region_dest].pawn_cnt = 1;
+                        regions[moving_pawns[i].region_dest].show_pawn_cnt = 1;
                         regions[moving_pawns[i].region_dest].color=moving_pawns[i].color;
                         change_region_color_game_map(map,moving_pawns[i].color,moving_pawns[i].dest_x,moving_pawns[i].dest_y);
                     }
@@ -346,6 +351,7 @@ int deploy_game_map(region *regions,pawn *moving_pawns,int cnt_moving_pawns,int 
         moving_pawns[cnt_moving_pawns].visible_after=i*5;
         cnt_moving_pawns++;
     }
+    regions[selected_source_region].pawn_cnt=0;
     return cnt_moving_pawns;
 }
 int is_reachable_game_map(region *regions,int cnt_regions,int x,int y){
@@ -520,6 +526,7 @@ int main_game_map(int map_number,int players_color){
 
     SDL_Rect potion_texture_rect = {.x=200, .y=200, .w=40, .h=50};
 
+
     int points=-1;
 
     SDL_bool shallExit = SDL_FALSE;
@@ -539,10 +546,19 @@ int main_game_map(int map_number,int players_color){
         if(frame==0){
             for(int i=0;i<cnt_regions;i++){
                 if(regions[i].color!=4 ){
-                    if(color_potions[regions[i].color][3]!=0 || regions[i].pawn_cnt<max_pawns)(regions[i].pawn_cnt) += regions[i].growth_rate;
-                    if(color_potions[regions[i].color][4]!=0 && regions[i].pawn_cnt<max_pawns)(regions[i].pawn_cnt) += regions[i].growth_rate;
+                    if(color_potions[regions[i].color][3]!=0 || regions[i].pawn_cnt<max_pawns){
+                        (regions[i].pawn_cnt) += regions[i].growth_rate;
+                        (regions[i].show_pawn_cnt) += regions[i].growth_rate;
+                    }
+                    if(color_potions[regions[i].color][4]!=0 && regions[i].pawn_cnt<max_pawns){
+                        (regions[i].pawn_cnt) += regions[i].growth_rate;
+                        (regions[i].show_pawn_cnt) += regions[i].growth_rate;
+                    }
                 }
-                if(regions[i].color==4 && regions[i].pawn_cnt<initial_pawn_cnt)(regions[i].pawn_cnt) += regions[i].growth_rate;
+                if(regions[i].color==4 && regions[i].pawn_cnt<initial_pawn_cnt){
+                    (regions[i].pawn_cnt) += regions[i].growth_rate;
+                    (regions[i].show_pawn_cnt) += regions[i].growth_rate;
+                }
             }
         }
 
@@ -552,13 +568,16 @@ int main_game_map(int map_number,int players_color){
 
         int finished=1;
         for(int i=0;i<cnt_regions;i++){
-            //for(int j=0;j<i;j++)if(regions[i].color!=regions[j].color && regions[i].color!=4 && regions[j].color!=4)finished=0;
             if(regions[i].color==players_color)finished=0;
         }
-        if(finished){
+        int finished2=1;
+        for(int i=0;i<cnt_regions;i++){
+            if(regions[i].color!=players_color && regions[i].color!=4)finished2=0;
+        }
+        if(finished || finished2){
             int index=0;
             while(regions[index].color==4)index++;
-            if(regions[index].color==players_color)points=10;
+            if(regions[index].color==players_color)points=15;
             else{
                 int cnt_different_colors=0;
                 int flag1=0,flag2=0,flag3=0,flag5=0;
@@ -580,7 +599,7 @@ int main_game_map(int map_number,int players_color){
                         cnt_different_colors++;
                     }
                 }
-                points=(10*(4-cnt_different_colors))/cnt_colors;
+                points=(10*cnt_different_colors)/cnt_colors;
             }
             shallExit=true;
         }

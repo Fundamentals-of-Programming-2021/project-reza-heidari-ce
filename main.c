@@ -14,6 +14,8 @@
 #include "leaderboard.h"
 #include "maps_menu.h"
 #include "picking_color.h"
+#include "win_loose_menu.h"
+
 int init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -41,6 +43,7 @@ void run_game_map(char *user_name,int map_number,int player_color);
 void run_leaderboard(char *user_name);
 void run_maps_menu(char *user_name);
 void run_picking_color(char *user_name,int map_number);
+void run_win_loose_menu(char *user_name,int points);
 void run_username_menu(){
     char *user_name=main_username_menu();
     if(user_name==NULL)return;
@@ -76,8 +79,13 @@ void run_game_map(char *user_name,int map_number,int player_color){
     if(points==-1)return;
     else if(points==-2)run_picking_color(user_name,map_number);
     else{
-        printf("%d",points);
+        run_win_loose_menu(user_name,points);
     }
+}
+void run_win_loose_menu(char *user_name,int points){
+    int next_menu_id= main_win_loose_menu(user_name,points);
+    if(next_menu_id==-1)return;
+    if(next_menu_id==-2)run_main_menu(user_name);
 }
 void run_leaderboard(char *user_name){
     int next_menu_id=main_leaderboard();

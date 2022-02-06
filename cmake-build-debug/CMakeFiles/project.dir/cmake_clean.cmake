@@ -13,6 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/project.dir/picking_color.c.o.d"
   "CMakeFiles/project.dir/username_menu.c.o"
   "CMakeFiles/project.dir/username_menu.c.o.d"
+  "CMakeFiles/project.dir/win_loose_menu.c.o"
+  "CMakeFiles/project.dir/win_loose_menu.c.o.d"
   "project"
   "project.pdb"
 )

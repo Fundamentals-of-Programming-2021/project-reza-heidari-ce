@@ -297,6 +297,30 @@ username_menu.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/username_menu.c.s
 .PHONY : username_menu.c.s
 
+win_loose_menu.o: win_loose_menu.c.o
+.PHONY : win_loose_menu.o
+
+# target to build an object file
+win_loose_menu.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/win_loose_menu.c.o
+.PHONY : win_loose_menu.c.o
+
+win_loose_menu.i: win_loose_menu.c.i
+.PHONY : win_loose_menu.i
+
+# target to preprocess a source file
+win_loose_menu.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/win_loose_menu.c.i
+.PHONY : win_loose_menu.c.i
+
+win_loose_menu.s: win_loose_menu.c.s
+.PHONY : win_loose_menu.s
+
+# target to generate assembly for a file
+win_loose_menu.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/win_loose_menu.c.s
+.PHONY : win_loose_menu.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -327,6 +351,9 @@ help:
 	@echo "... username_menu.o"
 	@echo "... username_menu.i"
 	@echo "... username_menu.s"
+	@echo "... win_loose_menu.o"
+	@echo "... win_loose_menu.i"
+	@echo "... win_loose_menu.s"
 .PHONY : help
 
 
