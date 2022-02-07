@@ -18,6 +18,6 @@ void init_picking_color();
 void kill_picking_color();
 void show_text_picking_color(char *str_text,SDL_Color color,TTF_Font* font,int x,int y);
 int is_in_rectangle_picking_color(int x1,int y1,int x2,int y2,int x,int y);
-int main_picking_color();
+int main_picking_color(int map_number);
 
 #endif //PROJECT_PICKING_COLOR_H

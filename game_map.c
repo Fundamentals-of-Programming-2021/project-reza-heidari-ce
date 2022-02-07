@@ -501,10 +501,24 @@ int main_game_map(int map_number,int players_color){
     int initial_pawn_cnt=10;
     int max_pawns=50;
     //
-
+    if(map_number==5){
+        create_random_map_game_map(map,cnt_colors+1,cnt_each,cnt_neutral,initial_pawn_cnt,regions);
+        for(int i=0;i<cnt_regions-1;i++){
+            change_region_color_game_map(map,players_color,regions[i].center_x,regions[i].center_y);
+            regions[i].color=players_color;
+        }
+        if(players_color==1){
+            regions[cnt_regions-1].color=2;
+            change_region_color_game_map(map,2,regions[cnt_regions-1].center_x,regions[cnt_regions-1].center_y);
+        }
+        if(players_color==2){
+            regions[cnt_regions-1].color=1;
+            change_region_color_game_map(map,1,regions[cnt_regions-1].center_x,regions[cnt_regions-1].center_y);
+        }
+    }
+    else create_random_map_game_map(map,cnt_colors+1,cnt_each,cnt_neutral,initial_pawn_cnt,regions);
     SDL_Color color_button = { 0xB2, 0x10, 0x10 };
 
-    create_random_map_game_map(map,cnt_colors+1,cnt_each,cnt_neutral,initial_pawn_cnt,regions);
     pawn moving_pawns[10000];
     int cnt_moving_pawns=0;
     int frame=0;
@@ -555,10 +569,10 @@ int main_game_map(int map_number,int players_color){
                         (regions[i].show_pawn_cnt) += regions[i].growth_rate;
                     }
                 }
-                if(regions[i].color==4 && regions[i].pawn_cnt<initial_pawn_cnt){
+             /*   if(regions[i].color==4 && regions[i].pawn_cnt<initial_pawn_cnt){
                     (regions[i].pawn_cnt) += regions[i].growth_rate;
                     (regions[i].show_pawn_cnt) += regions[i].growth_rate;
-                }
+                }*/
             }
         }
 

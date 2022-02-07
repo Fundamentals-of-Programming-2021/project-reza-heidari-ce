@@ -51,7 +51,7 @@ int is_in_rectangle_picking_color(int x1,int y1,int x2,int y2,int x,int y){
     if(x<x2 && x>x1 && y<y2 && y>y1)return 1;
     return 0;
 }
-int main_picking_color() {
+int main_picking_color(int map_number) {
 
     init_picking_color();
     background_texture = IMG_LoadTexture(renderer,"../main_menu_bg.png");
@@ -80,13 +80,16 @@ int main_picking_color() {
 
         roundedBoxRGBA(renderer,245,177,555,227,30,0x2b,0xde,0xc9,0xa9);
         roundedBoxRGBA(renderer,245,242,555,292,30,0x2b,0xde,0xc9,0xa9);
-        roundedBoxRGBA(renderer,245,307,555,357,30,0x30,0xde,0xc9,0xa9);
-        roundedBoxRGBA(renderer,245,372,555,422,30,0x30,0xde,0xc9,0xa9);
+        if(map_number!=5) {
+            roundedBoxRGBA(renderer, 245, 307, 555, 357, 30, 0x30, 0xde, 0xc9, 0xa9);
+            roundedBoxRGBA(renderer, 245, 372, 555, 422, 30, 0x30, 0xde, 0xc9, 0xa9);
+        }
         show_text_picking_color("red",color_red,font2,370,180);
         show_text_picking_color("green",color_green,font2,350,245);
-        show_text_picking_color("blue",color_blue,font2,365,310);
-        show_text_picking_color("yellow",color_yellow,font2,350,375);
-
+        if(map_number!=5){
+            show_text_picking_color("blue",color_blue,font2,365,310);
+            show_text_picking_color("yellow",color_yellow,font2,350,375);
+        }
         roundedBoxRGBA(renderer,50,500,150,550,10,0x2b,0xde,0xc9,0xa9);
         show_text_picking_color("back",color_button,font1,75,510);
 
@@ -101,17 +104,19 @@ int main_picking_color() {
                         next_menu_id=1;
                         shallExit = SDL_TRUE;
                     }
-                    else if(is_in_rectangle_picking_color(245,242,555,292,sdlEvent.button.x,sdlEvent.button.y)){
+                    if(is_in_rectangle_picking_color(245,242,555,292,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=2;
                         shallExit = SDL_TRUE;
                     }
-                    else if(is_in_rectangle_picking_color(245,307,555,357,sdlEvent.button.x,sdlEvent.button.y)){
-                        next_menu_id=3;
-                        shallExit = SDL_TRUE;
-                    }
-                    else if(is_in_rectangle_picking_color(245,372,555,422,sdlEvent.button.x,sdlEvent.button.y)){
-                        next_menu_id=5;
-                        shallExit = SDL_TRUE;
+                    if(map_number!=5) {
+                        if (is_in_rectangle_picking_color(245, 307, 555, 357, sdlEvent.button.x, sdlEvent.button.y)) {
+                            next_menu_id = 3;
+                            shallExit = SDL_TRUE;
+                        }
+                        if (is_in_rectangle_picking_color(245, 372, 555, 422, sdlEvent.button.x, sdlEvent.button.y)) {
+                            next_menu_id = 5;
+                            shallExit = SDL_TRUE;
+                        }
                     }
                     if(is_in_rectangle_picking_color(50,500,150,550,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=-2;

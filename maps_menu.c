@@ -72,14 +72,16 @@ int main_maps_menu() {
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, background_texture, NULL, &background_texture_rect);
 
-        roundedBoxRGBA(renderer,245,177,555,227,30,0x2b,0xde,0xc9,0xa9);
-        roundedBoxRGBA(renderer,245,242,555,292,30,0x2b,0xde,0xc9,0xa9);
-        roundedBoxRGBA(renderer,245,307,555,357,30,0x30,0xde,0xc9,0xa9);
-        roundedBoxRGBA(renderer,245,372,555,422,30,0x30,0xde,0xc9,0xa9);
-        show_text_maps_menu("map 1",color_title,font2,350,180);
-        show_text_maps_menu("map 2",color_title,font2,350,245);
-        show_text_maps_menu("map 3",color_title,font2,350,310);
-        show_text_maps_menu("random map",color_title,font2,292,375);
+        roundedBoxRGBA(renderer,245,127,555,177,30,0x2b,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,245,192,555,242,30,0x2b,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,245,257,555,307,30,0x30,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,245,322,555,372,30,0x30,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,150,387,650,437,30,0x30,0xde,0xc9,0xa9);
+        show_text_maps_menu("map 1",color_title,font2,350,130);
+        show_text_maps_menu("map 2",color_title,font2,350,195);
+        show_text_maps_menu("map 3",color_title,font2,350,260);
+        show_text_maps_menu("random map",color_title,font2,292,325);
+        show_text_maps_menu("memory management map",color_title,font2,180,390);
 
         roundedBoxRGBA(renderer,50,500,150,550,10,0x2b,0xde,0xc9,0xa9);
         show_text_maps_menu("back",color_title,font1,75,510);
@@ -91,20 +93,24 @@ int main_maps_menu() {
                     shallExit = SDL_TRUE;
                     break;
                 case SDL_MOUSEBUTTONUP:
-                    if(is_in_rectangle_maps_menu(245,177,555,227,sdlEvent.button.x,sdlEvent.button.y)){
+                    if(is_in_rectangle_maps_menu(245,127,555,177,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=1;
                         shallExit = SDL_TRUE;
                     }
-                    else if(is_in_rectangle_maps_menu(245,242,555,292,sdlEvent.button.x,sdlEvent.button.y)){
+                    else if(is_in_rectangle_maps_menu(245,192,555,242,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=2;
                         shallExit = SDL_TRUE;
                     }
-                    else if(is_in_rectangle_maps_menu(245,307,555,357,sdlEvent.button.x,sdlEvent.button.y)){
+                    else if(is_in_rectangle_maps_menu(245,257,555,307,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=3;
                         shallExit = SDL_TRUE;
                     }
-                    else if(is_in_rectangle_maps_menu(245,372,555,422,sdlEvent.button.x,sdlEvent.button.y)){
+                    else if(is_in_rectangle_maps_menu(245,322,555,372,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=4;
+                        shallExit = SDL_TRUE;
+                    }
+                    else if(is_in_rectangle_maps_menu(150,387,650,437,sdlEvent.button.x,sdlEvent.button.y)){
+                        next_menu_id=5;
                         shallExit = SDL_TRUE;
                     }
                     if(is_in_rectangle_maps_menu(50,500,150,550,sdlEvent.button.x,sdlEvent.button.y)){

@@ -67,7 +67,7 @@ void run_maps_menu(char *user_name){
     if(next_menu_id==-2)run_main_menu(user_name);
 }
 void run_picking_color(char *user_name,int map_number){
-    int next_menu_id=main_picking_color();
+    int next_menu_id=main_picking_color(map_number);
     if(next_menu_id==-1)return;
     else if(next_menu_id==-2)run_maps_menu(user_name);
     else{
