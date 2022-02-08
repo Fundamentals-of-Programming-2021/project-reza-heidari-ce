@@ -21,6 +21,10 @@ static SDL_Window* window;
 static SDL_Renderer* renderer;
 static SDL_Texture *background_texture;
 
+struct player{
+    int points;
+    char name[100];
+};
 
 void init_username_menu() {
     window = SDL_CreateWindow("State.io", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -114,6 +118,40 @@ char *main_username_menu() {
         free(user_name);
         return NULL;
     }
+
+
+
+    FILE *fptr= fopen("../player_scores.txt","r");
+    int cnt_players;
+    fscanf(fptr," %d",&cnt_players);
+    player players[100];
+    for(int i=0;i<cnt_players;i++){
+        fscanf(fptr," %[^\n]s",players[i].name);
+        fscanf(fptr," %d",&(players[i].points));
+    }
+    fclose(fptr);
+    int index=-1;
+    for(int i=0;i<cnt_players;i++){
+        if(!strcmp(players[i].name,user_name)){
+            index=i;
+            break;
+        }
+    }
+    if(index==-1){
+        strcpy(players[cnt_players].name,user_name);
+        players[cnt_players].points=0;
+        index=cnt_players;
+        cnt_players++;
+        FILE *temp_ptr= fopen("../player_scores_temp.txt","w");
+        fprintf(temp_ptr,"%d\n",cnt_players);
+        for(int i=0;i<cnt_players;i++){
+            fprintf(temp_ptr,"%s\n%d\n",players[i].name,players[i].points);
+        }
+        remove("../player_scores.txt");
+        rename("../player_scores_temp.txt","../player_scores.txt");
+        fclose(temp_ptr);
+    }
+
     return user_name;
 }
 

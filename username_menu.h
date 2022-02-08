@@ -15,7 +15,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-
+typedef struct player player;
 
 void init_username_menu();
 void kill_username_menu();
