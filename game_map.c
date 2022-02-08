@@ -549,8 +549,9 @@ int main_game_map(int map_number,int players_color){
         }
     }
     else create_random_map_game_map(map,cnt_colors+1,cnt_each,cnt_neutral,initial_pawn_cnt,regions);
-    SDL_Color color_button = { 0xB2, 0x10, 0x10 };
 
+    srand(time(NULL));
+    SDL_Color color_button = { 0xB2, 0x10, 0x10 };
     pawn moving_pawns[10000];
     int cnt_moving_pawns=0;
     int frame=0;
@@ -691,6 +692,7 @@ int main_game_map(int map_number,int players_color){
     }
 
     TTF_CloseFont( font1 );
+    TTF_CloseFont(font2);
     SDL_DestroyTexture(potion1_texture);
     SDL_DestroyTexture(potion2_texture);
     SDL_DestroyTexture(potion3_texture);

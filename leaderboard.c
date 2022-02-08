@@ -91,7 +91,7 @@ int main_leaderboard() {
         }
     }
 
-    printf("%d",cnt_players);
+    //printf("%d",cnt_players);
     int next_menu_id=-1;
 
     SDL_bool shallExit = SDL_FALSE;

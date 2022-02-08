@@ -48,6 +48,7 @@ void run_username_menu(){
     char *user_name=main_username_menu();
     if(user_name==NULL)return;
     run_main_menu(user_name);
+    free(user_name);
 }
 void run_main_menu(char *user_name){
     int next_menu_id=main_main_menu();
