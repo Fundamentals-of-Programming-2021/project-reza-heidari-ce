@@ -40,4 +40,5 @@ int process_potions_game_map(region *regions,int cnt_regions,pawn *moving_pawns,
 int is_in_rectangle_game_map(int x1,int y1,int x2,int y2,int x,int y);
 void show_text_game_map(char *str_text,SDL_Color color,TTF_Font* font,int x,int y);
 int opponents_game_map(region *regions,int cnt_regions,pawn *moving_pawns,int cnt_moving_pawns,int players_color,int color_potions[10][10]);
+void draw_potion_bar_game_map(int color_potions[10][10],SDL_Rect potion_texture_rect,int current_color);
 #endif //PROJECT_GAME_MAP_H

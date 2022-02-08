@@ -49,7 +49,7 @@ struct potion{
 void init_game_map() {
     window = SDL_CreateWindow("State.io", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               SCREEN_WIDTH,
-                              SCREEN_HEIGHT+75, SDL_WINDOW_OPENGL);
+                              SCREEN_HEIGHT+150, SDL_WINDOW_OPENGL);
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 }
@@ -485,6 +485,38 @@ int opponents_game_map(region *regions,int cnt_regions,pawn *moving_pawns,int cn
     }
     return cnt_moving_pawns;
 }
+void draw_potion_bar_game_map(int color_potions[10][10],SDL_Rect potion_texture_rect,int current_color){
+    for(int i=1;i<=4;i++){
+        if(color_potions[current_color][i]!=0){
+            if(current_color==1) {
+                potion_texture_rect.x = 200;
+                potion_texture_rect.y = 410;
+            }
+            if(current_color==2) {
+                potion_texture_rect.x = 400;
+                potion_texture_rect.y = 410;
+            }
+            if(current_color==3) {
+                potion_texture_rect.x = 200;
+                potion_texture_rect.y = 480;
+            }
+            if(current_color==5) {
+                potion_texture_rect.x = 400;
+                potion_texture_rect.y = 480;
+            }
+            if(i==1)SDL_RenderCopy(renderer,potion1_texture,NULL,&potion_texture_rect);
+            if(i==2)SDL_RenderCopy(renderer,potion2_texture,NULL,&potion_texture_rect);
+            if(i==3)SDL_RenderCopy(renderer,potion3_texture,NULL,&potion_texture_rect);
+            if(i==4)SDL_RenderCopy(renderer,potion4_texture,NULL,&potion_texture_rect);
+
+            if(current_color==1)boxRGBA(renderer,10+potion_texture_rect.x+potion_texture_rect.w,potion_texture_rect.y+10,10+potion_texture_rect.x+potion_texture_rect.w+color_potions[current_color][i]/3,potion_texture_rect.y-10+potion_texture_rect.h,0xff,0x55,0x55,0xff);
+            if(current_color==2)boxRGBA(renderer,10+potion_texture_rect.x+potion_texture_rect.w,potion_texture_rect.y+10,10+potion_texture_rect.x+potion_texture_rect.w+color_potions[current_color][i]/3,potion_texture_rect.y-10+potion_texture_rect.h,0x00,0xa0,0x00,0xff);
+            if(current_color==3)boxRGBA(renderer,10+potion_texture_rect.x+potion_texture_rect.w,potion_texture_rect.y+10,10+potion_texture_rect.x+potion_texture_rect.w+color_potions[current_color][i]/3,potion_texture_rect.y-10+potion_texture_rect.h,0xad,0x77,0xff,0xff);
+            if(current_color==5)boxRGBA(renderer,10+potion_texture_rect.x+potion_texture_rect.w,potion_texture_rect.y+10,10+potion_texture_rect.x+potion_texture_rect.w+color_potions[current_color][i]/3,potion_texture_rect.y-10+potion_texture_rect.h,0xf0,0xff,0x55,0xff);
+
+        }
+    }
+}
 int main_game_map(int map_number,int players_color){
     init_game_map();
     if(map_number==4)srand(time(NULL));
@@ -551,7 +583,6 @@ int main_game_map(int map_number,int players_color){
                 if(color_potions[i][j]>0)color_potions[i][j]--;
             }
         }
-
         SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
         SDL_RenderClear(renderer);
 
@@ -618,8 +649,16 @@ int main_game_map(int map_number,int players_color){
             shallExit=true;
         }
 
-        roundedBoxRGBA(renderer,50,410,150,460,10,0x2b,0xde,0xc9,0xa9);
-        show_text_game_map("back",color_button,font1,75,420);
+
+        for(int i=1;i<=5;i++){
+            if(i!=4)draw_potion_bar_game_map(color_potions,potion_texture_rect,i);
+        }
+
+
+
+
+        roundedBoxRGBA(renderer,50,450,150,500,10,0x2b,0xde,0xc9,0xa9);
+        show_text_game_map("back",color_button,font1,75,460);
 
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
@@ -631,7 +670,7 @@ int main_game_map(int map_number,int players_color){
                     selected_source_region=get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
                     break;
                 case SDL_MOUSEBUTTONUP:
-                    if(is_in_rectangle_game_map(50,410,150,460,sdlEvent.button.x,sdlEvent.button.y)){
+                    if(is_in_rectangle_game_map(50,450,150,500,sdlEvent.button.x,sdlEvent.button.y)){
                         points=-2;
                         shallExit = SDL_TRUE;
                     }
