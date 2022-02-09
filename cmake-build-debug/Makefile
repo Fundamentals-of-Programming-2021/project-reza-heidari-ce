@@ -273,6 +273,30 @@ picking_color.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/picking_color.c.s
 .PHONY : picking_color.c.s
 
+picking_player_count.o: picking_player_count.c.o
+.PHONY : picking_player_count.o
+
+# target to build an object file
+picking_player_count.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/picking_player_count.c.o
+.PHONY : picking_player_count.c.o
+
+picking_player_count.i: picking_player_count.c.i
+.PHONY : picking_player_count.i
+
+# target to preprocess a source file
+picking_player_count.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/picking_player_count.c.i
+.PHONY : picking_player_count.c.i
+
+picking_player_count.s: picking_player_count.c.s
+.PHONY : picking_player_count.s
+
+# target to generate assembly for a file
+picking_player_count.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/project.dir/build.make CMakeFiles/project.dir/picking_player_count.c.s
+.PHONY : picking_player_count.c.s
+
 username_menu.o: username_menu.c.o
 .PHONY : username_menu.o
 
@@ -348,6 +372,9 @@ help:
 	@echo "... picking_color.o"
 	@echo "... picking_color.i"
 	@echo "... picking_color.s"
+	@echo "... picking_player_count.o"
+	@echo "... picking_player_count.i"
+	@echo "... picking_player_count.s"
 	@echo "... username_menu.o"
 	@echo "... username_menu.i"
 	@echo "... username_menu.s"

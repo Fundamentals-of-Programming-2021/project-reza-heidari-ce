@@ -25,7 +25,7 @@ typedef struct region region;
 typedef struct potion potion;
 void init_game_map();
 void kill_game_map();
-int main_game_map(int map_number,int players_color);
+int main_game_map(int map_number,int players_color,int number_of_players);
 void add_border_game_map(int map[SCR_HEIGHT][SCR_WIDTH]);
 int place_check_game_map(region *regions,int region_index,int x,int y);
 void create_random_map_game_map(int map[SCR_HEIGHT][SCR_WIDTH],int cnt,int cnt_each,int cnt_neutral,int initial_pawn_cnt,region *regions);

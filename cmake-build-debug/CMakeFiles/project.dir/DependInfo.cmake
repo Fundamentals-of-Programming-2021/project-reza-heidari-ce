@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/mnt/c/sharif/c how to program/project/main_menu.c" "CMakeFiles/project.dir/main_menu.c.o" "gcc" "CMakeFiles/project.dir/main_menu.c.o.d"
   "/mnt/c/sharif/c how to program/project/maps_menu.c" "CMakeFiles/project.dir/maps_menu.c.o" "gcc" "CMakeFiles/project.dir/maps_menu.c.o.d"
   "/mnt/c/sharif/c how to program/project/picking_color.c" "CMakeFiles/project.dir/picking_color.c.o" "gcc" "CMakeFiles/project.dir/picking_color.c.o.d"
+  "/mnt/c/sharif/c how to program/project/picking_player_count.c" "CMakeFiles/project.dir/picking_player_count.c.o" "gcc" "CMakeFiles/project.dir/picking_player_count.c.o.d"
   "/mnt/c/sharif/c how to program/project/username_menu.c" "CMakeFiles/project.dir/username_menu.c.o" "gcc" "CMakeFiles/project.dir/username_menu.c.o.d"
   "/mnt/c/sharif/c how to program/project/win_loose_menu.c" "CMakeFiles/project.dir/win_loose_menu.c.o" "gcc" "CMakeFiles/project.dir/win_loose_menu.c.o.d"
   )

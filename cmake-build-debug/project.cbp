@@ -109,6 +109,12 @@
 		<Unit filename="/mnt/c/sharif/c how to program/project/picking_color.h">
 			<Option target="project"/>
 		</Unit>
+		<Unit filename="/mnt/c/sharif/c how to program/project/picking_player_count.c">
+			<Option target="project"/>
+		</Unit>
+		<Unit filename="/mnt/c/sharif/c how to program/project/picking_player_count.h">
+			<Option target="project"/>
+		</Unit>
 		<Unit filename="/mnt/c/sharif/c how to program/project/username_menu.c">
 			<Option target="project"/>
 		</Unit>

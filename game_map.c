@@ -89,6 +89,7 @@ void create_random_map_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],int cnt,int
     int region_index=0;
     for(int j=1;j<=cnt_each || j<=cnt_neutral;j++) {
         for(int i=1;i<=cnt;i++){
+            if(i==cnt && cnt==3)i++;
             if(i==4 && j>cnt_neutral)continue;
             if(i!=4 && j>cnt_each)continue;
             int start_x = rand() % SCREEN_WIDTH;
@@ -517,7 +518,7 @@ void draw_potion_bar_game_map(int color_potions[10][10],SDL_Rect potion_texture_
         }
     }
 }
-int main_game_map(int map_number,int players_color){
+int main_game_map(int map_number,int players_color,int number_of_players){
     init_game_map();
     if(map_number==4)srand(time(NULL));
     else srand(1000*map_number);
@@ -526,7 +527,8 @@ int main_game_map(int map_number,int players_color){
     TTF_Font* font1 = TTF_OpenFont("../Lato-Black.ttf", 24);
     TTF_Font* font2 = TTF_OpenFont("../Lato-Black.ttf", 14);
     //
-    int cnt_colors=4;
+    int cnt_colors=number_of_players;
+    if(map_number==5)cnt_colors=4;
     int cnt_each=2;
     int cnt_neutral=4;
     int cnt_regions=cnt_colors*cnt_each+cnt_neutral;
@@ -659,7 +661,7 @@ int main_game_map(int map_number,int players_color){
 
 
         roundedBoxRGBA(renderer,50,450,150,500,10,0x2b,0xde,0xc9,0xa9);
-        show_text_game_map("back",color_button,font1,75,460);
+        show_text_game_map("quit",color_button,font1,77,460);
 
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
