@@ -61,10 +61,6 @@ int main_picking_player_count() {
 
     SDL_Rect background_texture_rect = {.x=0, .y=0, .w=SCREEN_WIDTH, .h=SCREEN_HEIGHT};
 
-    SDL_Color color_blue = { 0x00, 0x00, 0xff };
-    SDL_Color color_red = { 0xff, 0x00, 0x00 };
-    SDL_Color color_green = { 0x00, 0xa0, 0x00 };
-    SDL_Color color_yellow = { 0xff, 0xff, 0x00 };
     SDL_Color color_button = { 0xB2, 0x10, 0x10 };
     SDL_Color color_title = { 0x00, 0x00, 0x00 };
 
@@ -121,7 +117,6 @@ int main_picking_player_count() {
     TTF_CloseFont( font2 );
     TTF_CloseFont(font3);
     kill_picking_player_count();
-
     return next_menu_id;
 }
 
