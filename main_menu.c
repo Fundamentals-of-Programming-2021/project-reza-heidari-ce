@@ -60,8 +60,6 @@ int main_main_menu() {
 
     SDL_Rect background_texture_rect = {.x=0, .y=0, .w=SCREEN_WIDTH, .h=SCREEN_HEIGHT};
 
-    SDL_Color credits_color = { 0x2E, 0xCA, 0x1D };
-    SDL_Color user_name_color = { 0, 0, 0 };
     SDL_Color color_title = { 0xB2, 0x10, 0x10 };
 
     int next_menu_id=-1;
