@@ -310,6 +310,14 @@ int move_pawns_game_map(int map[SCREEN_HEIGHT][SCREEN_WIDTH],pawn *moving_pawns,
             if(dest<=2*(circle_radius*circle_radius)){
                 temp[i].current_x=-1;
                 temp[j].current_x=-1;
+                if(temp[i].visible_after>=0){
+                    if(regions[temp[i].region_source].show_pawn_cnt>0)(regions[temp[i].region_source].show_pawn_cnt)--;
+                    temp[i].visible_after=-1;
+                }
+                if(temp[j].visible_after>=0){
+                    if(regions[temp[j].region_source].show_pawn_cnt>0)(regions[temp[j].region_source].show_pawn_cnt)--;
+                    temp[j].visible_after=-1;
+                }
                 break;
             }
         }
