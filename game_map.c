@@ -668,8 +668,8 @@ int main_game_map(int map_number,int players_color,int number_of_players){
 
 
 
-        roundedBoxRGBA(renderer,50,450,150,500,10,0x2b,0xde,0xc9,0xa9);
-        show_text_game_map("quit",color_button,font1,77,460);
+        roundedBoxRGBA(renderer,10,450,150,500,10,0x2b,0xde,0xc9,0xa9);
+        show_text_game_map("main menu",color_button,font1,20,460);
 
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
@@ -681,7 +681,7 @@ int main_game_map(int map_number,int players_color,int number_of_players){
                     selected_source_region=get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
                     break;
                 case SDL_MOUSEBUTTONUP:
-                    if(is_in_rectangle_game_map(50,450,150,500,sdlEvent.button.x,sdlEvent.button.y)){
+                    if(is_in_rectangle_game_map(10,450,150,500,sdlEvent.button.x,sdlEvent.button.y)){
                         points=-2;
                         shallExit = SDL_TRUE;
                     }
