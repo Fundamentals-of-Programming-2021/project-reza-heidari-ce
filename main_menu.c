@@ -73,13 +73,13 @@ int main_main_menu() {
         SDL_RenderCopy(renderer, background_texture, NULL, &background_texture_rect);
 
         roundedBoxRGBA(renderer,245,177,555,227,30,0x2b,0xde,0xc9,0xa9);
-        roundedBoxRGBA(renderer,245,242,555,292,30,0x2b,0xde,0xc9,0xa9);
+       // roundedBoxRGBA(renderer,245,242,555,292,30,0x2b,0xde,0xc9,0xa9);
+        roundedBoxRGBA(renderer,245,242,555,292,30,0x30,0xde,0xc9,0xa9);
         roundedBoxRGBA(renderer,245,307,555,357,30,0x30,0xde,0xc9,0xa9);
-        roundedBoxRGBA(renderer,245,372,555,422,30,0x30,0xde,0xc9,0xa9);
         show_text_main_menu("new game",color_title,font2,320,180);
-        show_text_main_menu("continue",color_title,font2,320,245);
-        show_text_main_menu("leaderboard",color_title,font2,290,310);
-        show_text_main_menu("Change user name",color_title,font2,245,375);
+        //show_text_main_menu("continue",color_title,font2,320,245);
+        show_text_main_menu("leaderboard",color_title,font2,290,245);
+        show_text_main_menu("Change user name",color_title,font2,245,310);
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
             switch (sdlEvent.type) {
@@ -95,11 +95,11 @@ int main_main_menu() {
                         next_menu_id=2;
                         shallExit = SDL_TRUE;
                     }*/
-                    else if(is_in_rectangle_main_menu(245,307,555,357,sdlEvent.button.x,sdlEvent.button.y)){
+                    else if(is_in_rectangle_main_menu(245,242,555,292,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=3;
                         shallExit = SDL_TRUE;
                     }
-                    else if(is_in_rectangle_main_menu(245,372,555,422,sdlEvent.button.x,sdlEvent.button.y)){
+                    else if(is_in_rectangle_main_menu(245,307,555,357,sdlEvent.button.x,sdlEvent.button.y)){
                         next_menu_id=4;
                         shallExit = SDL_TRUE;
                     }
