@@ -17,8 +17,8 @@
 
 
 
-enum{SCR_WIDTH = 600};
-enum{SCR_HEIGHT = 400};
+enum{SCR_WIDTH = 800};
+enum{SCR_HEIGHT = 600};
 
 typedef struct pawn pawn;
 typedef struct region region;

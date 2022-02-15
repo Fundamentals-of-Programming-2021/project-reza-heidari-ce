@@ -1,7 +1,7 @@
 CMakeFiles/project.dir/leaderboard.c.o: \
- /mnt/c/sharif/c\ how\ to\ program/project/leaderboard.c \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/leaderboard.c \
  /usr/include/stdc-predef.h \
- /mnt/c/sharif/c\ how\ to\ program/project/leaderboard.h \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/leaderboard.h \
  /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
  /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h \
  /usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h \

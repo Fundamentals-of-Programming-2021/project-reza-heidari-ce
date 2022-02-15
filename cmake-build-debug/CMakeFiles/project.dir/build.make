@@ -53,10 +53,10 @@ RM = /usr/local/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/mnt/c/sharif/c how to program/project"
+CMAKE_SOURCE_DIR = "/mnt/c/sharif/Fundamentals of Programming/project"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/mnt/c/sharif/c how to program/project/cmake-build-debug"
+CMAKE_BINARY_DIR = "/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/project.dir/depend.make
@@ -72,128 +72,128 @@ include CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/main.c.o: CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/main.c.o: ../main.c
 CMakeFiles/project.dir/main.c.o: CMakeFiles/project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/c how to program/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/project.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/main.c.o -MF CMakeFiles/project.dir/main.c.o.d -o CMakeFiles/project.dir/main.c.o -c "/mnt/c/sharif/c how to program/project/main.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/project.dir/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/main.c.o -MF CMakeFiles/project.dir/main.c.o.d -o CMakeFiles/project.dir/main.c.o -c "/mnt/c/sharif/Fundamentals of Programming/project/main.c"
 
 CMakeFiles/project.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/project.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/c how to program/project/main.c" > CMakeFiles/project.dir/main.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/Fundamentals of Programming/project/main.c" > CMakeFiles/project.dir/main.c.i
 
 CMakeFiles/project.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/project.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/c how to program/project/main.c" -o CMakeFiles/project.dir/main.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/Fundamentals of Programming/project/main.c" -o CMakeFiles/project.dir/main.c.s
 
 CMakeFiles/project.dir/username_menu.c.o: CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/username_menu.c.o: ../username_menu.c
 CMakeFiles/project.dir/username_menu.c.o: CMakeFiles/project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/c how to program/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/project.dir/username_menu.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/username_menu.c.o -MF CMakeFiles/project.dir/username_menu.c.o.d -o CMakeFiles/project.dir/username_menu.c.o -c "/mnt/c/sharif/c how to program/project/username_menu.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/project.dir/username_menu.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/username_menu.c.o -MF CMakeFiles/project.dir/username_menu.c.o.d -o CMakeFiles/project.dir/username_menu.c.o -c "/mnt/c/sharif/Fundamentals of Programming/project/username_menu.c"
 
 CMakeFiles/project.dir/username_menu.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/project.dir/username_menu.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/c how to program/project/username_menu.c" > CMakeFiles/project.dir/username_menu.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/Fundamentals of Programming/project/username_menu.c" > CMakeFiles/project.dir/username_menu.c.i
 
 CMakeFiles/project.dir/username_menu.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/project.dir/username_menu.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/c how to program/project/username_menu.c" -o CMakeFiles/project.dir/username_menu.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/Fundamentals of Programming/project/username_menu.c" -o CMakeFiles/project.dir/username_menu.c.s
 
 CMakeFiles/project.dir/game_map.c.o: CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/game_map.c.o: ../game_map.c
 CMakeFiles/project.dir/game_map.c.o: CMakeFiles/project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/c how to program/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/project.dir/game_map.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/game_map.c.o -MF CMakeFiles/project.dir/game_map.c.o.d -o CMakeFiles/project.dir/game_map.c.o -c "/mnt/c/sharif/c how to program/project/game_map.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/project.dir/game_map.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/game_map.c.o -MF CMakeFiles/project.dir/game_map.c.o.d -o CMakeFiles/project.dir/game_map.c.o -c "/mnt/c/sharif/Fundamentals of Programming/project/game_map.c"
 
 CMakeFiles/project.dir/game_map.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/project.dir/game_map.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/c how to program/project/game_map.c" > CMakeFiles/project.dir/game_map.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/Fundamentals of Programming/project/game_map.c" > CMakeFiles/project.dir/game_map.c.i
 
 CMakeFiles/project.dir/game_map.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/project.dir/game_map.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/c how to program/project/game_map.c" -o CMakeFiles/project.dir/game_map.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/Fundamentals of Programming/project/game_map.c" -o CMakeFiles/project.dir/game_map.c.s
 
 CMakeFiles/project.dir/main_menu.c.o: CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/main_menu.c.o: ../main_menu.c
 CMakeFiles/project.dir/main_menu.c.o: CMakeFiles/project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/c how to program/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/project.dir/main_menu.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/main_menu.c.o -MF CMakeFiles/project.dir/main_menu.c.o.d -o CMakeFiles/project.dir/main_menu.c.o -c "/mnt/c/sharif/c how to program/project/main_menu.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/project.dir/main_menu.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/main_menu.c.o -MF CMakeFiles/project.dir/main_menu.c.o.d -o CMakeFiles/project.dir/main_menu.c.o -c "/mnt/c/sharif/Fundamentals of Programming/project/main_menu.c"
 
 CMakeFiles/project.dir/main_menu.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/project.dir/main_menu.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/c how to program/project/main_menu.c" > CMakeFiles/project.dir/main_menu.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/Fundamentals of Programming/project/main_menu.c" > CMakeFiles/project.dir/main_menu.c.i
 
 CMakeFiles/project.dir/main_menu.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/project.dir/main_menu.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/c how to program/project/main_menu.c" -o CMakeFiles/project.dir/main_menu.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/Fundamentals of Programming/project/main_menu.c" -o CMakeFiles/project.dir/main_menu.c.s
 
 CMakeFiles/project.dir/leaderboard.c.o: CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/leaderboard.c.o: ../leaderboard.c
 CMakeFiles/project.dir/leaderboard.c.o: CMakeFiles/project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/c how to program/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/project.dir/leaderboard.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/leaderboard.c.o -MF CMakeFiles/project.dir/leaderboard.c.o.d -o CMakeFiles/project.dir/leaderboard.c.o -c "/mnt/c/sharif/c how to program/project/leaderboard.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/project.dir/leaderboard.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/leaderboard.c.o -MF CMakeFiles/project.dir/leaderboard.c.o.d -o CMakeFiles/project.dir/leaderboard.c.o -c "/mnt/c/sharif/Fundamentals of Programming/project/leaderboard.c"
 
 CMakeFiles/project.dir/leaderboard.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/project.dir/leaderboard.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/c how to program/project/leaderboard.c" > CMakeFiles/project.dir/leaderboard.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/Fundamentals of Programming/project/leaderboard.c" > CMakeFiles/project.dir/leaderboard.c.i
 
 CMakeFiles/project.dir/leaderboard.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/project.dir/leaderboard.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/c how to program/project/leaderboard.c" -o CMakeFiles/project.dir/leaderboard.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/Fundamentals of Programming/project/leaderboard.c" -o CMakeFiles/project.dir/leaderboard.c.s
 
 CMakeFiles/project.dir/maps_menu.c.o: CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/maps_menu.c.o: ../maps_menu.c
 CMakeFiles/project.dir/maps_menu.c.o: CMakeFiles/project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/c how to program/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/project.dir/maps_menu.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/maps_menu.c.o -MF CMakeFiles/project.dir/maps_menu.c.o.d -o CMakeFiles/project.dir/maps_menu.c.o -c "/mnt/c/sharif/c how to program/project/maps_menu.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/project.dir/maps_menu.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/maps_menu.c.o -MF CMakeFiles/project.dir/maps_menu.c.o.d -o CMakeFiles/project.dir/maps_menu.c.o -c "/mnt/c/sharif/Fundamentals of Programming/project/maps_menu.c"
 
 CMakeFiles/project.dir/maps_menu.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/project.dir/maps_menu.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/c how to program/project/maps_menu.c" > CMakeFiles/project.dir/maps_menu.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/Fundamentals of Programming/project/maps_menu.c" > CMakeFiles/project.dir/maps_menu.c.i
 
 CMakeFiles/project.dir/maps_menu.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/project.dir/maps_menu.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/c how to program/project/maps_menu.c" -o CMakeFiles/project.dir/maps_menu.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/Fundamentals of Programming/project/maps_menu.c" -o CMakeFiles/project.dir/maps_menu.c.s
 
 CMakeFiles/project.dir/picking_color.c.o: CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/picking_color.c.o: ../picking_color.c
 CMakeFiles/project.dir/picking_color.c.o: CMakeFiles/project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/c how to program/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/project.dir/picking_color.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/picking_color.c.o -MF CMakeFiles/project.dir/picking_color.c.o.d -o CMakeFiles/project.dir/picking_color.c.o -c "/mnt/c/sharif/c how to program/project/picking_color.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/project.dir/picking_color.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/picking_color.c.o -MF CMakeFiles/project.dir/picking_color.c.o.d -o CMakeFiles/project.dir/picking_color.c.o -c "/mnt/c/sharif/Fundamentals of Programming/project/picking_color.c"
 
 CMakeFiles/project.dir/picking_color.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/project.dir/picking_color.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/c how to program/project/picking_color.c" > CMakeFiles/project.dir/picking_color.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/Fundamentals of Programming/project/picking_color.c" > CMakeFiles/project.dir/picking_color.c.i
 
 CMakeFiles/project.dir/picking_color.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/project.dir/picking_color.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/c how to program/project/picking_color.c" -o CMakeFiles/project.dir/picking_color.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/Fundamentals of Programming/project/picking_color.c" -o CMakeFiles/project.dir/picking_color.c.s
 
 CMakeFiles/project.dir/win_loose_menu.c.o: CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/win_loose_menu.c.o: ../win_loose_menu.c
 CMakeFiles/project.dir/win_loose_menu.c.o: CMakeFiles/project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/c how to program/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/project.dir/win_loose_menu.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/win_loose_menu.c.o -MF CMakeFiles/project.dir/win_loose_menu.c.o.d -o CMakeFiles/project.dir/win_loose_menu.c.o -c "/mnt/c/sharif/c how to program/project/win_loose_menu.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/project.dir/win_loose_menu.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/win_loose_menu.c.o -MF CMakeFiles/project.dir/win_loose_menu.c.o.d -o CMakeFiles/project.dir/win_loose_menu.c.o -c "/mnt/c/sharif/Fundamentals of Programming/project/win_loose_menu.c"
 
 CMakeFiles/project.dir/win_loose_menu.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/project.dir/win_loose_menu.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/c how to program/project/win_loose_menu.c" > CMakeFiles/project.dir/win_loose_menu.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/Fundamentals of Programming/project/win_loose_menu.c" > CMakeFiles/project.dir/win_loose_menu.c.i
 
 CMakeFiles/project.dir/win_loose_menu.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/project.dir/win_loose_menu.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/c how to program/project/win_loose_menu.c" -o CMakeFiles/project.dir/win_loose_menu.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/Fundamentals of Programming/project/win_loose_menu.c" -o CMakeFiles/project.dir/win_loose_menu.c.s
 
 CMakeFiles/project.dir/picking_player_count.c.o: CMakeFiles/project.dir/flags.make
 CMakeFiles/project.dir/picking_player_count.c.o: ../picking_player_count.c
 CMakeFiles/project.dir/picking_player_count.c.o: CMakeFiles/project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/c how to program/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/project.dir/picking_player_count.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/picking_player_count.c.o -MF CMakeFiles/project.dir/picking_player_count.c.o.d -o CMakeFiles/project.dir/picking_player_count.c.o -c "/mnt/c/sharif/c how to program/project/picking_player_count.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/project.dir/picking_player_count.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/project.dir/picking_player_count.c.o -MF CMakeFiles/project.dir/picking_player_count.c.o.d -o CMakeFiles/project.dir/picking_player_count.c.o -c "/mnt/c/sharif/Fundamentals of Programming/project/picking_player_count.c"
 
 CMakeFiles/project.dir/picking_player_count.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/project.dir/picking_player_count.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/c how to program/project/picking_player_count.c" > CMakeFiles/project.dir/picking_player_count.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/mnt/c/sharif/Fundamentals of Programming/project/picking_player_count.c" > CMakeFiles/project.dir/picking_player_count.c.i
 
 CMakeFiles/project.dir/picking_player_count.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/project.dir/picking_player_count.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/c how to program/project/picking_player_count.c" -o CMakeFiles/project.dir/picking_player_count.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/mnt/c/sharif/Fundamentals of Programming/project/picking_player_count.c" -o CMakeFiles/project.dir/picking_player_count.c.s
 
 # Object files for target project
 project_OBJECTS = \
@@ -221,7 +221,7 @@ project: CMakeFiles/project.dir/win_loose_menu.c.o
 project: CMakeFiles/project.dir/picking_player_count.c.o
 project: CMakeFiles/project.dir/build.make
 project: CMakeFiles/project.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/mnt/c/sharif/c how to program/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable project"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable project"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/project.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -233,6 +233,6 @@ CMakeFiles/project.dir/clean:
 .PHONY : CMakeFiles/project.dir/clean
 
 CMakeFiles/project.dir/depend:
-	cd "/mnt/c/sharif/c how to program/project/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/mnt/c/sharif/c how to program/project" "/mnt/c/sharif/c how to program/project" "/mnt/c/sharif/c how to program/project/cmake-build-debug" "/mnt/c/sharif/c how to program/project/cmake-build-debug" "/mnt/c/sharif/c how to program/project/cmake-build-debug/CMakeFiles/project.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/mnt/c/sharif/Fundamentals of Programming/project" "/mnt/c/sharif/Fundamentals of Programming/project" "/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug" "/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug" "/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/CMakeFiles/project.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/project.dir/depend
 

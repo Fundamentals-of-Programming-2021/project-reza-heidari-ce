@@ -14,8 +14,8 @@
 #include <string.h>
 
 
-enum{SCREEN_WIDTH = 600};
-enum{SCREEN_HEIGHT = 400};
+enum{SCREEN_WIDTH = 800};
+enum{SCREEN_HEIGHT = 600};
 static const int FPS = 60;
 
 static SDL_Window* window;
@@ -499,19 +499,19 @@ void draw_potion_bar_game_map(int color_potions[10][10],SDL_Rect potion_texture_
         if(color_potions[current_color][i]!=0){
             if(current_color==1) {
                 potion_texture_rect.x = 200;
-                potion_texture_rect.y = 410;
+                potion_texture_rect.y = 610;
             }
             if(current_color==2) {
                 potion_texture_rect.x = 400;
-                potion_texture_rect.y = 410;
+                potion_texture_rect.y = 610;
             }
             if(current_color==3) {
                 potion_texture_rect.x = 200;
-                potion_texture_rect.y = 480;
+                potion_texture_rect.y = 680;
             }
             if(current_color==5) {
                 potion_texture_rect.x = 400;
-                potion_texture_rect.y = 480;
+                potion_texture_rect.y = 680;
             }
             if(i==1)SDL_RenderCopy(renderer,potion1_texture,NULL,&potion_texture_rect);
             if(i==2)SDL_RenderCopy(renderer,potion2_texture,NULL,&potion_texture_rect);
@@ -538,7 +538,7 @@ int main_game_map(int map_number,int players_color,int number_of_players){
     int cnt_colors=number_of_players;
     if(map_number==5)cnt_colors=4;
     int cnt_each=2;
-    int cnt_neutral=4;
+    int cnt_neutral=10;
     int cnt_regions=cnt_colors*cnt_each+cnt_neutral;
     int initial_pawn_cnt=10;
     int max_pawns=50;
@@ -668,8 +668,8 @@ int main_game_map(int map_number,int players_color,int number_of_players){
 
 
 
-        roundedBoxRGBA(renderer,10,450,150,500,10,0x2b,0xde,0xc9,0xa9);
-        show_text_game_map("main menu",color_button,font1,20,460);
+        roundedBoxRGBA(renderer,10,650,150,700,10,0x2b,0xde,0xc9,0xa9);
+        show_text_game_map("main menu",color_button,font1,20,660);
 
         SDL_Event sdlEvent;
         while (SDL_PollEvent(&sdlEvent)) {
@@ -681,7 +681,7 @@ int main_game_map(int map_number,int players_color,int number_of_players){
                     selected_source_region=get_region_id_game_map(regions,cnt_regions,sdlEvent.button.x,sdlEvent.button.y);
                     break;
                 case SDL_MOUSEBUTTONUP:
-                    if(is_in_rectangle_game_map(10,450,150,500,sdlEvent.button.x,sdlEvent.button.y)){
+                    if(is_in_rectangle_game_map(10,650,150,700,sdlEvent.button.x,sdlEvent.button.y)){
                         points=-2;
                         shallExit = SDL_TRUE;
                     }

@@ -1,7 +1,7 @@
 CMakeFiles/project.dir/game_map.c.o: \
- /mnt/c/sharif/c\ how\ to\ program/project/game_map.c \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/game_map.c \
  /usr/include/stdc-predef.h \
- /mnt/c/sharif/c\ how\ to\ program/project/game_map.h \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/game_map.h \
  /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
  /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h \
  /usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h \

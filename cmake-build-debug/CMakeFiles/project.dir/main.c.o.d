@@ -1,5 +1,5 @@
 CMakeFiles/project.dir/main.c.o: \
- /mnt/c/sharif/c\ how\ to\ program/project/main.c \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/main.c \
  /usr/include/stdc-predef.h /usr/include/SDL2/SDL.h \
  /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_stdinc.h \
  /usr/include/SDL2/SDL_config.h \
@@ -157,11 +157,11 @@ CMakeFiles/project.dir/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
- /mnt/c/sharif/c\ how\ to\ program/project/username_menu.h \
- /mnt/c/sharif/c\ how\ to\ program/project/game_map.h \
- /mnt/c/sharif/c\ how\ to\ program/project/main_menu.h \
- /mnt/c/sharif/c\ how\ to\ program/project/leaderboard.h \
- /mnt/c/sharif/c\ how\ to\ program/project/maps_menu.h \
- /mnt/c/sharif/c\ how\ to\ program/project/picking_color.h \
- /mnt/c/sharif/c\ how\ to\ program/project/win_loose_menu.h \
- /mnt/c/sharif/c\ how\ to\ program/project/picking_player_count.h
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/username_menu.h \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/game_map.h \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/main_menu.h \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/leaderboard.h \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/maps_menu.h \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/picking_color.h \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/win_loose_menu.h \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/picking_player_count.h

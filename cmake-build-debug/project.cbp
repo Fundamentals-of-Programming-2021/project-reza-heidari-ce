@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SDL2\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/mnt/c/sharif/c how to program/project/cmake-build-debug"/>
+				<Option working_dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/mnt/c/sharif/c how to program/project/cmake-build-debug"/>
+				<Option working_dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/mnt/c/sharif/c how to program/project/cmake-build-debug"/>
+				<Option working_dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="project">
-				<Option output="/mnt/c/sharif/c how to program/project/cmake-build-debug/project" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/mnt/c/sharif/c how to program/project/cmake-build-debug"/>
+				<Option output="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/project" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -50,15 +50,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 project"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 project"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="project/fast">
-				<Option output="/mnt/c/sharif/c how to program/project/cmake-build-debug/project" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/mnt/c/sharif/c how to program/project/cmake-build-debug"/>
+				<Option output="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug/project" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/mnt/c/sharif/Fundamentals of Programming/project/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -69,68 +69,68 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 project/fast"/>
-					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/c\ how\ to\ program/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 project/fast"/>
+					<CompileFile command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j16 -f &quot;/mnt/c/sharif/Fundamentals\ of\ Programming/project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/mnt/c/sharif/c how to program/project/game_map.c">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/game_map.c">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/game_map.h">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/game_map.h">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/leaderboard.c">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/leaderboard.c">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/leaderboard.h">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/leaderboard.h">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/main.c">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/main.c">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/main_menu.c">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/main_menu.c">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/main_menu.h">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/main_menu.h">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/maps_menu.c">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/maps_menu.c">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/maps_menu.h">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/maps_menu.h">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/picking_color.c">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/picking_color.c">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/picking_color.h">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/picking_color.h">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/picking_player_count.c">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/picking_player_count.c">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/picking_player_count.h">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/picking_player_count.h">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/username_menu.c">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/username_menu.c">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/username_menu.h">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/username_menu.h">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/win_loose_menu.c">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/win_loose_menu.c">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/win_loose_menu.h">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/win_loose_menu.h">
 			<Option target="project"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/CMakeLists.txt">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="/mnt/c/sharif/c how to program/project/../../../../../usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake">
+		<Unit filename="/mnt/c/sharif/Fundamentals of Programming/project/../../../../../usr/lib/x86_64-linux-gnu/cmake/SDL2/sdl2-config.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\SDL2\"/>
 		</Unit>
 	</Project>

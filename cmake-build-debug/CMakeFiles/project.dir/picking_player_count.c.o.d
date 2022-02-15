@@ -1,7 +1,7 @@
 CMakeFiles/project.dir/picking_player_count.c.o: \
- /mnt/c/sharif/c\ how\ to\ program/project/picking_player_count.c \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/picking_player_count.c \
  /usr/include/stdc-predef.h \
- /mnt/c/sharif/c\ how\ to\ program/project/picking_player_count.h \
+ /mnt/c/sharif/Fundamentals\ of\ Programming/project/picking_player_count.h \
  /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_main.h \
  /usr/include/SDL2/SDL_stdinc.h /usr/include/SDL2/SDL_config.h \
  /usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h \
